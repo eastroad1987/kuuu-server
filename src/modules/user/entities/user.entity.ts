@@ -1,88 +1,83 @@
-import { Exclude } from "class-transformer";
 import { KuuuTableEnums, UserEnums } from "common/constants/KuuuTableEnums";
 import { BaseModel } from "common/entity/base.entity";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 
 export enum UserRole {
-  ADMIN = "admin",
   USER = "user",
+  ADMIN = "admin",
 }
 
 @Entity(KuuuTableEnums.USER)
 export class User extends BaseModel {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @Column("varchar", {
     name: UserEnums.EMAIL,
-    nullable: true,
-    comment: "이메일",
     length: 255,
+    nullable: false,
+    unique: true,
+    comment: "이메일",
   })
   email: string;
 
   @Column("varchar", {
     name: UserEnums.NAME,
-    nullable: true,
-    comment: "이름",
     length: 255,
+    nullable: false,
+    comment: "이름",
   })
   name: string;
 
-  @Exclude()
-  @Column("varchar", {
-    name: UserEnums.PASSWORD,
-    nullable: true,
-    comment: "비밀번호",
-    length: 255,
-  })
-  password: string;
-
-  @Column({
-    type: "enum",
+  @Column("enum", {
+    name: UserEnums.ROLE,
     enum: UserRole,
     default: UserRole.USER,
+    comment: "역할",
   })
-  @Exclude()
   role: UserRole;
 
   @Column("varchar", {
+    name: UserEnums.PASSWORD,
+    length: 255,
+    nullable: false,
+    comment: "비밀번호",
+    select: false,
+  })
+  password: string;
+
+  @Column("text", {
     name: UserEnums.ACCESS_TOKEN,
     nullable: true,
-    comment: "accessToken",
-    length: 255,
+    comment: "액세스 토큰",
   })
   accessToken: string;
 
-  @Column("varchar", {
+  @Column("text", {
     name: UserEnums.REFRESH_TOKEN,
     nullable: true,
-    comment: "refreshToken",
-    length: 255,
+    comment: "리프레시 토큰",
   })
   refreshToken: string;
 
   @Column("varchar", {
     name: UserEnums.DEVICE_TOKEN,
-    nullable: true,
-    comment: "deviceToken",
     length: 255,
+    nullable: true,
+    comment: "디바이스 토큰",
   })
   deviceToken: string;
 
   @Column("varchar", {
     name: UserEnums.IMAGE_URL,
-    nullable: true,
-    comment: "이미지 url",
     length: 255,
+    nullable: true,
+    comment: "프로필 이미지 URL",
   })
   imageUrl: string;
 
   @Column("varchar", {
     name: UserEnums.SNS_ID,
-    nullable: true,
-    comment: "snsId",
     length: 255,
+    nullable: true,
+    comment: "SNS ID",
   })
   snsId: string;
 }

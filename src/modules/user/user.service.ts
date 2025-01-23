@@ -1,40 +1,157 @@
-import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-
+import { JwtService } from "@nestjs/jwt";
+import * as bcrypt from "bcrypt";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import { User, UserRole } from "./entities/user.entity";
+import { User } from "./entities/user.entity";
+import { LoginDto } from "./dto/login.dto";
 
 @Injectable()
 export class UserService {
-  private readonly logger = new Logger(UserService.name);
-
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private userRepository: Repository<User>,
+    private jwtService: JwtService
   ) {}
 
-  async createByAdmin(user: User, createUserDto: CreateUserDto) {
-    if (user.role !== UserRole.ADMIN) {
-      throw new HttpException("어드민 유저만 생성이 가능합니다.", HttpStatus.BAD_REQUEST);
+  async create(createUserDto: CreateUserDto) {
+    const existingUser = await this.userRepository.findOne({
+      where: { email: createUserDto.email },
+    });
+
+    if (existingUser) {
+      throw new BadRequestException("Email already exists");
     }
-    return await this.usersRepository.save(createUserDto);
+
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+
+    const user = await this.userRepository.save({
+      ...createUserDto,
+      password: hashedPassword,
+    });
+
+    delete user.password;
+    return user;
   }
-  async updateByAdmin(user: User, updateUserDto: UpdateUserDto) {
-    console.log("[updateByAdmin] updateUserDto : ", updateUserDto);
-    return await this.usersRepository.update(updateUserDto.id, updateUserDto);
+
+  async login(loginDto: LoginDto) {
+    const user = await this.userRepository.findOne({
+      where: { email: loginDto.email },
+      select: ["id", "email", "password", "role"],
+    });
+
+    if (!user) {
+      throw new UnauthorizedException("Invalid credentials");
+    }
+
+    const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException("Invalid credentials");
+    }
+
+    const payload = { sub: user.id, email: user.email, role: user.role };
+    const accessToken = this.jwtService.sign(payload);
+    const refreshToken = this.jwtService.sign(payload, { expiresIn: "7d" });
+
+    await this.userRepository.update(user.id, {
+      accessToken,
+      refreshToken,
+    });
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  async refreshToken(userId: number) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      select: ["id", "email", "role", "refreshToken"],
+    });
+
+    if (!user || !user.refreshToken) {
+      throw new UnauthorizedException("Invalid refresh token");
+    }
+
+    const payload = { sub: user.id, email: user.email, role: user.role };
+    const accessToken = this.jwtService.sign(payload);
+
+    await this.userRepository.update(user.id, { accessToken });
+
+    return { accessToken };
+  }
+
+  async findAll() {
+    return this.userRepository.find({
+      select: ["id", "email", "name", "role", "imageUrl", "createdAt"],
+    });
+  }
+
+  async findOne(id: number) {
+    const user = await this.userRepository.findOne({
+      where: { id },
+      select: ["id", "email", "name", "role", "imageUrl", "createdAt"],
+    });
+
+    if (!user) {
+      throw new NotFoundException("User not found");
+    }
+
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return await this.usersRepository.update(id, updateUserDto);
+    const user = await this.userRepository.findOne({
+      where: { id },
+      select: ["id", "password"],
+    });
+
+    if (!user) {
+      throw new NotFoundException("User not found");
+    }
+
+    if (updateUserDto.currentPassword && updateUserDto.newPassword) {
+      const isPasswordValid = await bcrypt.compare(updateUserDto.currentPassword, user.password);
+
+      if (!isPasswordValid) {
+        throw new UnauthorizedException("Current password is incorrect");
+      }
+      const hashedPassword = await bcrypt.hash(updateUserDto.newPassword, 10);
+      const updatedFields = { ...updateUserDto };
+      updatedFields["password"] = hashedPassword;
+      updateUserDto = updatedFields;
+    }
+
+    delete updateUserDto.currentPassword;
+    delete updateUserDto.newPassword;
+
+    await this.userRepository.update(id, updateUserDto);
+    return this.findOne(id);
   }
 
-  async findEmail(email: string): Promise<User> {
-    return this.usersRepository.findOne({ where: { email } });
+  async remove(id: number) {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException("User not found");
+    }
+
+    return this.userRepository.delete(id);
   }
 
-  async findOneColumn(column: string, value: string | number): Promise<User> {
-    return this.usersRepository.findOne({ [column]: value });
+  async logout(id: number) {
+    await this.userRepository.update(id, {
+      accessToken: null,
+      refreshToken: null,
+    });
+    return { message: "Logged out successfully" };
   }
 }

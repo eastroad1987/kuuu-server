@@ -1,59 +1,10 @@
 export enum KuuuTableEnums {
-  BOARD = "boards",
-  ARTICLE = "articles",
-  ARTICLE_COMMENT = "article_comments",
   USER = "users",
   UPLOAD_FILE = "upload_files",
-}
-
-export enum BoardEnums {
-  ID = "id",
-  CREATED_AT = "created_at",
-  UPDATED_AT = "updated_at",
-  DELETED_AT = "deleted_at",
-  BOARD_NAME = "board_name",
-  BOARD_TYPE = "board_type",
-  ANONYMOUS_YN = "anonymous_yn",
-  TITLE_YN = "title_yn",
-  CONTENT_YN = "content_yn",
-  THUMBNAIL_YN = "thumbnail_yn",
-  REFERENCE_PLACE_YN = "reference_place_yn",
-  SECRET_YN = "secret_yn",
-  IMAGES_YN = "images_yn",
-  ATTACH_FILES_YN = "attach_files_yn",
-  COMMENT_YN = "comment_yn",
-  VIEW_CNT_YN = "view_cnt_yn",
-  LIKE_YN = "like_yn",
-}
-
-export enum ArticleEnums {
-  ID = "id",
-  CREATED_AT = "created_at",
-  UPDATED_AT = "updated_at",
-  DELETED_AT = "deleted_at",
-  BOARD_ID = "board_id",
-  WRITER_ID = "writer_id",
-  WRITER_NAME = "writer_name",
-  TITLE = "title",
-  CONTENT = "content",
-  SUMMARY = "summary",
-  THUMBNAIL = "thumbnail",
-  REFERENCE_PLACE = "reference_place",
-  IMAGES = "images",
-  ATTACH_FILES = "attach_files",
-  VIEW_CNT = "view_cnt",
-}
-
-export enum ArticleCommentEnums {
-  ID = "id",
-  CREATED_AT = "created_at",
-  UPDATED_AT = "updated_at",
-  DELETED_AT = "deleted_at",
-  ARTICLE_ID = "article_id",
-  WRITER_ID = "writer_id",
-  WRITER_NAME = "writer_name",
-  COMMENT = "comment",
-  FILE_PATH = "file_path",
+  CATEGORY = "categories",
+  SUBCATEGORY = "sub_categories",
+  POST = "posts",
+  COMMENT = "comments",
 }
 
 export enum UserEnums {
@@ -61,10 +12,10 @@ export enum UserEnums {
   CREATED_AT = "created_at",
   UPDATED_AT = "updated_at",
   DELETED_AT = "deleted_at",
-  NAME = "name",
   EMAIL = "email",
-  PASSWORD = "password",
+  NAME = "name",
   ROLE = "role",
+  PASSWORD = "password",
   ACCESS_TOKEN = "access_token",
   REFRESH_TOKEN = "refresh_token",
   DEVICE_TOKEN = "device_token",
@@ -83,4 +34,62 @@ export enum UploadFileEnums {
   MIME_TYPE = "mime_type",
   SIZE = "size",
   URL = "url",
+}
+
+export enum CategoryEnums {
+  ID = "id",
+  CREATED_AT = "created_at",
+  UPDATED_AT = "updated_at",
+  DELETED_AT = "deleted_at",
+  TITLE = "title",
+}
+
+export enum SubCategoryEnums {
+  ID = "id",
+  CREATED_AT = "created_at",
+  UPDATED_AT = "updated_at",
+  DELETED_AT = "deleted_at",
+  TITLE = "title",
+  ANONYMOUS_YN = "anonymous_yn",
+  TITLE_YN = "title_yn",
+  CONTENT_YN = "content_yn",
+  THUMBNAIL_YN = "thumbnail_yn",
+  REFERENCE_PLACE_YN = "reference_place_yn",
+  SECRET_YN = "secret_yn",
+  IMAGES_YN = "images_yn",
+  ATTACH_FILES_YN = "attach_files_yn",
+  COMMENT_YN = "comment_yn",
+  VIEW_CNT_YN = "view_cnt_yn",
+  CATEGORY_ID = "category_id",
+}
+
+export enum PostEnums {
+  ID = "id",
+  CREATED_AT = "created_at",
+  UPDATED_AT = "updated_at",
+  DELETED_AT = "deleted_at",
+  SUMMARY = "summary",
+  TITLE = "title",
+  CONTENT = "content",
+  THUMBNAIL = "thumbnail",
+  REFERENCE_PLACE = "reference_place",
+  IMAGES = "images",
+  ATTACH_FILES = "attach_files",
+  AUTHOR_ID = "author_id",
+  VIEW_CNT = "view_cnt",
+  SUBCATEGORY_ID = "subcategory_id",
+  CATEGORY_ID = "category_id",
+}
+
+export enum CommentEnums {
+  ID = "id",
+  CREATED_AT = "created_at",
+  UPDATED_AT = "updated_at",
+  DELETED_AT = "deleted_at",
+  POST_ID = "post_id",
+  AUTHOR_ID = "author_id",
+  CONTENT = "content",
+  WRITE_NAME = "write_name",
+  FILE_PATH = "file_path",
+  PARENT_COMMENT_ID = "parent_comment_id",
 }

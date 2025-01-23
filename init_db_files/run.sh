@@ -6,18 +6,17 @@ VOLUME_NAME="kuuu-data"
 DB_NAME="kuuu_db"
 DB_USER="kuuu"
 DB_PASSWORD="kurumi0963"
-HOST_PORT1=9696
-CONTAINER_PORT1=9696
-HOST_PORT2=5432
-CONTAINER_PORT2=5432
+HOST_PORT=3306
+CONTAINER_PORT=3306
 SQL_FILE="init.sql"
 
 # Stop and remove existing container
 docker stop $CONTAINER_NAME 2>/dev/null || true
 docker rm $CONTAINER_NAME 2>/dev/null || true
+docker rmi $IMAGE_NAME 2>/dev/null || true
 
-# Create Volumn 
-docker volume create kuuu_db_data
+# Create Volume 
+docker volume create $VOLUME_NAME
 
 # Build image
 echo "Building Docker image..."
@@ -27,27 +26,39 @@ docker build --tag $IMAGE_NAME .
 echo "Starting container..."
 docker run -d \
     --name $CONTAINER_NAME \
-    -e POSTGRES_DB=$DB_NAME \
-    -e POSTGRES_USER=$DB_USER \
-    -e POSTGRES_PASSWORD=$DB_PASSWORD \
-    -p $HOST_PORT1:$CONTAINER_PORT1 \
-    -p $HOST_PORT2:$CONTAINER_PORT2 \
-    -v $VOLUME_NAME:/var/lib/postgresql/data \
+    -e MYSQL_DATABASE=$DB_NAME \
+    -e MYSQL_USER=$DB_USER \
+    -e MYSQL_PASSWORD=$DB_PASSWORD \
+    -e MYSQL_ROOT_PASSWORD=$DB_PASSWORD \
+    -p $HOST_PORT:$CONTAINER_PORT \
+    -v $VOLUME_NAME:/var/lib/mysql \
     -v $(pwd)/init.sql:/docker-entrypoint-initdb.d/init.sql \
     --restart unless-stopped \
     $IMAGE_NAME
-
-echo "Waiting for database to initialize..."
-sleep 10
 
 # SQL 파일 복사 및 실행
 echo "Executing SQL file..."
 docker cp $SQL_FILE $CONTAINER_NAME:/tmp/
 
-echo "Container started. To access the database, use:"
-#echo "docker exec -it $CONTAINER_NAME psql -U kuuu -d kuuu_db"
-#docker exec -it $CONTAINER_NAME psql -U kuuu -d kuuu_db
-#docker exec -i kuuu-db-container-prod psql -U kuuu -d kuuu_db -f /tmp/init.sql
-docker exec -i $CONTAINER_NAME psql -U $DB_USER -d $DB_NAME -f /tmp/$SQL_FILE
+# 데이터베이스 초기화 대기
+echo "Waiting for database to initialize..."
+sleep 3
 
-docker exec -i $CONTAINER_NAME psql -U $DB_USER -d $DB_NAME -c "\dt"
+echo "Database is ready!"
+
+# root 사용자로 권한 부여
+echo "Granting privileges to user..."
+docker exec -i $CONTAINER_NAME mysql -uroot << EOF
+CREATE DATABASE IF NOT EXISTS $DB_NAME
+    CHARACTER SET = 'utf8mb4'
+    COLLATE = 'utf8mb4_unicode_ci';
+CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';
+GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EOF
+
+echo "Container started. To access the database, use:"
+docker exec -i $CONTAINER_NAME mysql -u$DB_USER -p$DB_PASSWORD $DB_NAME < $SQL_FILE
+
+# 테이블 목록 확인
+docker exec -i $CONTAINER_NAME mysql -u$DB_USER -p$DB_PASSWORD $DB_NAME -e "SHOW TABLES;"

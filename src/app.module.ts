@@ -28,6 +28,7 @@ import { AuthModule } from "auth/auth.module";
 // import { UploadFileModule } from 'modules/upload-file/upload-file.module';
 // import { UserModule } from 'modules/users/users.module';
 // import { HealthCheckController } from 'modules/health-check/health-check.controller';
+import { CategoriesModule } from './categories/categories.module';
 
 let envFilePath;
 switch (process.env.NODE_ENV) {
@@ -78,6 +79,7 @@ switch (process.env.NODE_ENV) {
     ArticleCommentModule,
     UploadFileModule,
     UnitOfWorkModule,
+    CategoriesModule,
   ],
   controllers: [AppController, HealthCheckController],
   providers: [AppService, { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor }],
