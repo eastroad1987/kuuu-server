@@ -36,7 +36,7 @@ let AuthService = AuthService_1 = class AuthService {
     }
     async loginAdmin(authDto) {
         console.log("[loginAdmin] authDto : ", authDto);
-        const user = await this.userService.findEmail(authDto.email);
+        const user = await this.userRepository.findOne({ where: { email: authDto.email } });
         if (!user) {
             throw new common_1.HttpException("아이디 패스워드를 확인해주세요", common_1.HttpStatus.BAD_REQUEST);
         }
@@ -72,7 +72,7 @@ let AuthService = AuthService_1 = class AuthService {
         return tokens;
     }
     async checkExistUserByOauth(req) {
-        const currentUser = await this.userService.findOneColumn("providerKey", req.user.name);
+        const currentUser = await this.userService.findOne(req.user.name);
         return currentUser;
     }
     async verifyPassword(plainTextPassword, user) {
@@ -117,19 +117,18 @@ let AuthService = AuthService_1 = class AuthService {
         });
     }
     async getUserIfRefreshTokenMatches(refreshToken, id) {
-        const user = await this.userService.findOneColumn("id", id);
+        const user = await this.userService.findOne(id);
         const isRefreshTokenMatching = (0, bcrypt_1.compare)(refreshToken, user.refreshToken);
         if (isRefreshTokenMatching) {
             return user;
         }
     }
     async removeRefreshToken(user) {
-        return this.userService.update(user.id, {
-            refreshToken: null,
-        });
+        console.log("[removeRefreshToken] user : ", user);
+        return;
     }
     async refreshToken(id, refreshToken) {
-        const user = await this.userService.findOneColumn("id", id);
+        const user = await this.userService.findOne(id);
         if (!user)
             throw new common_1.HttpException("인증실패.", common_1.HttpStatus.UNAUTHORIZED);
         const storeRefreshToken = user.refreshToken;

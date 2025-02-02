@@ -27,7 +27,7 @@ export declare class AuthService {
     getTokens(userId: number, email: string): Promise<any>;
     getAccessToken(userId: number, email: string): Promise<any>;
     getUserIfRefreshTokenMatches(refreshToken: string, id: number): Promise<User>;
-    removeRefreshToken(user: AuthUserDto): Promise<import("typeorm").UpdateResult>;
+    removeRefreshToken(user: AuthUserDto): Promise<void>;
     refreshToken(id: number, refreshToken: string): Promise<{
         accessToken: any;
     }>;

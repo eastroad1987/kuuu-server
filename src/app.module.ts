@@ -15,20 +15,15 @@ import { LoggerMiddleware } from "common/middleware/logger.middleware";
 import { HealthCheckController } from "modules/health-check/health-check.controller";
 import { TerminusModule } from "@nestjs/terminus";
 import { UserModule } from "modules/user/user.module";
-import { ArticleModule } from "modules/article/article.module";
-import { BoardModule } from "modules/board/board.module";
+
 import { UploadFileModule } from "modules/upload-file/upload-file.module";
 import { UnitOfWorkModule } from "common/unit-of-work/unitofwork.module";
-import { ArticleCommentModule } from "modules/article-comment/article-comment.module";
-import { AuthModule } from "auth/auth.module";
 
-// import { ArticleCommentModule } from 'modules/article-comment/article-comment.module';
-// import { ArticleModule } from 'modules/article/article.module';
-// import { BoardModule } from 'modules/board/board.module';
-// import { UploadFileModule } from 'modules/upload-file/upload-file.module';
-// import { UserModule } from 'modules/users/users.module';
-// import { HealthCheckController } from 'modules/health-check/health-check.controller';
-import { CategoriesModule } from './categories/categories.module';
+import { AuthModule } from "auth/auth.module";
+import { CategoryModule } from "modules/category/category.module";
+import { CommentModule } from "modules/comment/comment.module";
+import { PostModule } from "modules/post/post.module";
+import { SubCategoryModule } from "modules/sub-category/sub-category.module";
 
 let envFilePath;
 switch (process.env.NODE_ENV) {
@@ -54,7 +49,7 @@ switch (process.env.NODE_ENV) {
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         return {
-          type: "postgres",
+          type: "mysql",
           timezone: "+09:00",
           host: configService.get("MYSQL_HOST"),
           port: configService.get<number>("MYSQL_PORT"),
@@ -73,13 +68,13 @@ switch (process.env.NODE_ENV) {
     }),
     TerminusModule,
     UserModule,
-    BoardModule,
     AuthModule,
-    ArticleModule,
-    ArticleCommentModule,
+    CategoryModule,
+    SubCategoryModule,
+    CommentModule,
+    PostModule,
     UploadFileModule,
     UnitOfWorkModule,
-    CategoriesModule,
   ],
   controllers: [AppController, HealthCheckController],
   providers: [AppService, { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor }],

@@ -30,7 +30,7 @@ export class AuthService {
   async loginAdmin(authDto: AuthDto) {
     console.log("[loginAdmin] authDto : ", authDto);
 
-    const user = await this.userService.findEmail(authDto.email);
+    const user = await this.userRepository.findOne({ where: { email: authDto.email } });
 
     if (!user) {
       throw new HttpException("아이디 패스워드를 확인해주세요", HttpStatus.BAD_REQUEST);
@@ -73,7 +73,7 @@ export class AuthService {
     return tokens;
   }
   async checkExistUserByOauth(req): Promise<User> {
-    const currentUser = await this.userService.findOneColumn("providerKey", req.user.name);
+    const currentUser = await this.userService.findOne(req.user.name);
     return currentUser;
   }
 
@@ -125,7 +125,7 @@ export class AuthService {
   }
 
   async getUserIfRefreshTokenMatches(refreshToken: string, id: number) {
-    const user = await this.userService.findOneColumn("id", id);
+    const user = await this.userService.findOne(id);
 
     const isRefreshTokenMatching = compare(refreshToken, user.refreshToken);
     if (isRefreshTokenMatching) {
@@ -134,13 +134,15 @@ export class AuthService {
   }
 
   async removeRefreshToken(user: AuthUserDto) {
-    return this.userService.update(user.id, {
-      refreshToken: null,
-    });
+    console.log("[removeRefreshToken] user : ", user);
+    return;
+    // return this.userService.update(user.id, {
+    //   refreshToken: null,
+    // });
   }
 
   async refreshToken(id: number, refreshToken: string) {
-    const user = await this.userService.findOneColumn("id", id);
+    const user = await this.userService.findOne(id);
 
     if (!user) throw new HttpException("인증실패.", HttpStatus.UNAUTHORIZED);
 

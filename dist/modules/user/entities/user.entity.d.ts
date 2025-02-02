@@ -1,14 +1,13 @@
 import { BaseModel } from "common/entity/base.entity";
 export declare enum UserRole {
-    ADMIN = "admin",
-    USER = "user"
+    USER = "user",
+    ADMIN = "admin"
 }
 export declare class User extends BaseModel {
-    id: number;
     email: string;
     name: string;
-    password: string;
     role: UserRole;
+    password: string;
     accessToken: string;
     refreshToken: string;
     deviceToken: string;

@@ -49,6 +49,15 @@ export class CategoryService {
     return { data, totalCount };
   }
 
+  async findCategories() {
+    return this.categoryRepository.find({
+      relations: ["subcategories"],
+      order: {
+        createdAt: "DESC",
+      },
+    });
+  }
+
   async findOne(id: number) {
     const category = await this.categoryRepository.findOne({
       where: { id },

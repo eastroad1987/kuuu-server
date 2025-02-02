@@ -17,12 +17,13 @@ const logger_middleware_1 = require("./common/middleware/logger.middleware");
 const health_check_controller_1 = require("./modules/health-check/health-check.controller");
 const terminus_1 = require("@nestjs/terminus");
 const user_module_1 = require("./modules/user/user.module");
-const article_module_1 = require("./modules/article/article.module");
-const board_module_1 = require("./modules/board/board.module");
 const upload_file_module_1 = require("./modules/upload-file/upload-file.module");
 const unitofwork_module_1 = require("./common/unit-of-work/unitofwork.module");
-const article_comment_module_1 = require("./modules/article-comment/article-comment.module");
 const auth_module_1 = require("./auth/auth.module");
+const category_module_1 = require("./modules/category/category.module");
+const comment_module_1 = require("./modules/comment/comment.module");
+const post_module_1 = require("./modules/post/post.module");
+const sub_category_module_1 = require("./modules/sub-category/sub-category.module");
 let envFilePath;
 switch (process.env.NODE_ENV) {
     case "local":
@@ -54,7 +55,7 @@ exports.AppModule = AppModule = __decorate([
                 imports: [config_1.ConfigModule],
                 useFactory: (configService) => {
                     return {
-                        type: "postgres",
+                        type: "mysql",
                         timezone: "+09:00",
                         host: configService.get("MYSQL_HOST"),
                         port: configService.get("MYSQL_PORT"),
@@ -73,10 +74,11 @@ exports.AppModule = AppModule = __decorate([
             }),
             terminus_1.TerminusModule,
             user_module_1.UserModule,
-            board_module_1.BoardModule,
             auth_module_1.AuthModule,
-            article_module_1.ArticleModule,
-            article_comment_module_1.ArticleCommentModule,
+            category_module_1.CategoryModule,
+            sub_category_module_1.SubCategoryModule,
+            comment_module_1.CommentModule,
+            post_module_1.PostModule,
             upload_file_module_1.UploadFileModule,
             unitofwork_module_1.UnitOfWorkModule,
         ],

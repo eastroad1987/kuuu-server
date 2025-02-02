@@ -1,11 +1,33 @@
-import { BaseController } from "common/controller/base.controller";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { User } from "./entities/user.entity";
-export declare class UserController extends BaseController {
+import { LoginDto } from "./dto/login.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { User, UserRole } from "./entities/user.entity";
+import { UserService } from "./user.service";
+export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
-    createByAdmin(createUserDto: CreateUserDto, user: User): Promise<void>;
-    updateByAdmin(updateUserDto: UpdateUserDto, user: User): Promise<void>;
+    create(createUserDto: CreateUserDto): Promise<{
+        password: string;
+        email: string;
+        name: string;
+        role?: UserRole;
+        deviceToken?: string;
+        imageUrl?: string;
+        snsId?: string;
+    } & User>;
+    login(loginDto: LoginDto): Promise<{
+        accessToken: string;
+        refreshToken: string;
+    }>;
+    refreshToken(user: User): Promise<{
+        accessToken: string;
+    }>;
+    findAll(): Promise<User[]>;
+    getProfile(user: User): Promise<User>;
+    findOne(id: string): Promise<User>;
+    update(id: string, updateUserDto: UpdateUserDto, user: User): Promise<User>;
+    remove(id: string): Promise<import("typeorm").DeleteResult>;
+    logout(user: User): Promise<{
+        message: string;
+    }>;
 }

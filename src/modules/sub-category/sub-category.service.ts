@@ -6,6 +6,7 @@ import { CreateSubCategoryDto } from "./dto/create-sub-category.dto";
 import { GetSubCategoryDto } from "./dto/get-sub-category.dto";
 import { UpdateSubCategoryDto } from "./dto/update-sub-category.dto";
 import { SubCategory } from "./entities/sub-category.entity";
+import { Post } from "modules/post/entities/post.entity";
 
 @Injectable()
 export class SubCategoryService {
@@ -13,7 +14,9 @@ export class SubCategoryService {
     @InjectRepository(SubCategory)
     private subCategoryRepository: Repository<SubCategory>,
     @InjectRepository(Category)
-    private categoryRepository: Repository<Category>
+    private categoryRepository: Repository<Category>,
+    @InjectRepository(Post)
+    private postRepository: Repository<Post>
   ) {}
 
   async create(createSubCategoryDto: CreateSubCategoryDto) {
@@ -42,6 +45,30 @@ export class SubCategoryService {
     const [data, totalCount] = await qb
       .skip(query.start || 0)
       .take(query.limit || 20)
+      .getManyAndCount();
+
+    return { data, totalCount };
+  }
+
+  async findPostsBySubCategoryId(subcategoryId: number, query: GetSubCategoryDto) {
+    let qb = this.postRepository
+      .createQueryBuilder("post")
+      .leftJoinAndSelect("post.category", "category")
+      .leftJoinAndSelect("post.subcategory", "subcategory")
+      .where("post.subcategoryId = :subcategoryId", { subcategoryId });
+
+    if (query.title) {
+      qb = qb.andWhere("post.title LIKE :title", { title: `%${query.title}%` });
+    }
+
+    if (query.categoryId) {
+      qb = qb.andWhere("post.categoryId = :categoryId", { categoryId: query.categoryId });
+    }
+
+    const [data, totalCount] = await qb
+      .skip(query.start || 0)
+      .take(query.limit || 20)
+      .orderBy("post.createdAt", "DESC")
       .getManyAndCount();
 
     return { data, totalCount };

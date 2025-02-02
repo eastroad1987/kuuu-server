@@ -40,6 +40,15 @@ export class SubCategoryController {
     return this.subCategoryService.findAll(query);
   }
 
+  @Get(":id/posts")
+  @ApiOperation({
+    summary: "[서비스] 서브카테고리 게시글 목록 조회",
+    description: "특정 서브카테고리의 게시글 목록을 조회합니다",
+  })
+  findPostsBySubCategoryId(@Param("id") id: string, @Query() query: GetSubCategoryDto) {
+    return this.subCategoryService.findPostsBySubCategoryId(+id, query);
+  }
+
   @Get(":id")
   @ApiOperation({
     summary: "[서비스] 서브카테고리 상세 조회",

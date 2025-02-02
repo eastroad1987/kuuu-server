@@ -48,7 +48,6 @@ export class PostService {
   async findAll(query: GetPostDto) {
     let qb = this.postRepository
       .createQueryBuilder("post")
-      .leftJoinAndSelect("post.author", "author")
       .leftJoinAndSelect("post.category", "category")
       .leftJoinAndSelect("post.subcategory", "subcategory");
 
@@ -88,7 +87,7 @@ export class PostService {
   async findOne(id: number) {
     const post = await this.postRepository.findOne({
       where: { id },
-      relations: ["author", "category", "subcategory"],
+      relations: ["category", "subcategory"],
     });
     if (!post) {
       throw new NotFoundException("Post not found");

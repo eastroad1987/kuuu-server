@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkUserImageUrl = exports.checkSingleUserImageUrl = exports.checkHeartStarProfile = exports.checkScrapJobPosting = exports.checkLikeCompany = void 0;
-const UserGroupEnums_1 = require("../constants/UserGroupEnums");
+exports.checkUserImageUrl = exports.checkSingleUserImageUrl = exports.checkScrapJobPosting = exports.checkLikeCompany = void 0;
 const checkLikeCompany = async (data, repository, jsonProperty, targetProperty, jobSeekerId) => {
     if (data.length > 0) {
         const companyIds = data.map((v) => keyMap(v, jsonProperty));
@@ -39,24 +38,6 @@ const checkScrapJobPosting = async (data, repository, jsonProperty, targetProper
     }
 };
 exports.checkScrapJobPosting = checkScrapJobPosting;
-const checkHeartStarProfile = async (data, repository, jsonProperty, targetProperty, companyId, type) => {
-    if (data.length > 0) {
-        const jobSeekerProfileIds = data.map((v) => keyMap(v, jsonProperty));
-        const heartInfos = companyId && jobSeekerProfileIds
-            ? await repository.query(`select jobSeekerProfileId,"heartYn" from CompanyToJobSeekerProfileMapping where companyId=${companyId} and type='${type}' and jobSeekerProfileId in (${jobSeekerProfileIds})`)
-            : [];
-        data.map((item) => {
-            const heartOrStarYn = type === UserGroupEnums_1.UserGroupEnums.HEART ? "heartYn" : "starYn";
-            keyMap(item, targetProperty)[heartOrStarYn] = "N";
-            heartInfos.map((heartJobSeekerProfile) => {
-                if (keyMap(item, jsonProperty) === heartJobSeekerProfile.jobSeekerProfileId) {
-                    keyMap(item, targetProperty)[heartOrStarYn] = "Y";
-                }
-            });
-        });
-    }
-};
-exports.checkHeartStarProfile = checkHeartStarProfile;
 const checkSingleUserImageUrl = async (data, repository) => {
     const userId = data.writerId;
     const users = userId
