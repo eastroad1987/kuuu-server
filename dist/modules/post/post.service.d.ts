@@ -16,7 +16,7 @@ export declare class PostService {
         authorId: number;
         title: string;
         content: string;
-        summary: string;
+        summary?: string;
         thumbnail?: string;
         referencePlace?: string;
         images?: string;
@@ -29,6 +29,7 @@ export declare class PostService {
         totalCount: number;
     }>;
     findOne(id: number): Promise<Post>;
+    findPostsByMonth(): Promise<Post[]>;
     update(id: number, updatePostDto: UpdatePostDto, userId: number): Promise<import("typeorm").UpdateResult>;
     remove(id: number, userId: number): Promise<import("typeorm").DeleteResult>;
     increaseViewCount(id: number): Promise<import("typeorm").UpdateResult>;

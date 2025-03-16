@@ -23,14 +23,14 @@ import { PostService } from "./post.service";
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({
     summary: "[서비스] 게시글 생성",
     description: "새로운 게시글을 생성합니다",
   })
   create(@Body() createPostDto: CreatePostDto, @UserDeco() user: User) {
-    return this.postService.create(createPostDto, user.id);
+    return this.postService.create(createPostDto, 1);
   }
 
   @Get()
@@ -50,6 +50,16 @@ export class PostController {
   async findOne(@Param("id") id: string) {
     await this.postService.increaseViewCount(+id);
     return this.postService.findOne(+id);
+  }
+
+  @Get("monthly/list")
+  @ApiOperation({
+    summary: "[서비스] 최근 1개월 게시글 조회",
+    description: "최근 1개월 동안 작성된 게시글을 조회합니다",
+  })
+  async findPostsByMonth() {
+    console.log("[findPostsByMonth] controller");
+    return await this.postService.findPostsByMonth();
   }
 
   @UseGuards(JwtAuthGuard)

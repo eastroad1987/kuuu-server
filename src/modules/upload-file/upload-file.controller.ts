@@ -22,12 +22,12 @@ import { S3Service } from "providers/aws/aws-s3.service";
 import { UpdateUploadFileDto } from "./dto/update-upload-file.dto";
 import { UploadFileService } from "./upload-file.service";
 import { S3Client } from "@aws-sdk/client-s3";
-// AWS S3
-const s3 = new S3Client({
+
+const s3Client = new S3Client({
   region: "ap-northeast-2",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_PRIVATE_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
 });
 
@@ -58,8 +58,8 @@ export class UploadFileController {
   @UseInterceptors(
     FilesInterceptor("file", 20, {
       storage: multerS3({
-        s3: s3,
-        bucket: "s3-99f", //TODO 이후 변경
+        s3: s3Client,
+        bucket: "s3-kuuu",
         key: function (request, file, cb) {
           cb(null, `${Date.now().toString()}-${file.originalname}`);
         },

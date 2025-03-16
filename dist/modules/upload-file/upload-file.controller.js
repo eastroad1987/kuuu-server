@@ -25,11 +25,11 @@ const aws_s3_service_1 = require("../../providers/aws/aws-s3.service");
 const update_upload_file_dto_1 = require("./dto/update-upload-file.dto");
 const upload_file_service_1 = require("./upload-file.service");
 const client_s3_1 = require("@aws-sdk/client-s3");
-const s3 = new client_s3_1.S3Client({
+const s3Client = new client_s3_1.S3Client({
     region: "ap-northeast-2",
     credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_PRIVATE_KEY,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     },
 });
 let UploadFileController = class UploadFileController {
@@ -96,8 +96,8 @@ __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseInterceptors)((0, files_interceptor_1.FilesInterceptor)("file", 20, {
         storage: multerS3({
-            s3: s3,
-            bucket: "s3-99f",
+            s3: s3Client,
+            bucket: "s3-kuuu",
             key: function (request, file, cb) {
                 cb(null, `${Date.now().toString()}-${file.originalname}`);
             },

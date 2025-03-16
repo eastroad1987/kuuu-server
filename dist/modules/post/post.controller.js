@@ -27,7 +27,7 @@ let PostController = class PostController {
         this.postService = postService;
     }
     create(createPostDto, user) {
-        return this.postService.create(createPostDto, user.id);
+        return this.postService.create(createPostDto, 1);
     }
     findAll(query) {
         return this.postService.findAll(query);
@@ -35,6 +35,10 @@ let PostController = class PostController {
     async findOne(id) {
         await this.postService.increaseViewCount(+id);
         return this.postService.findOne(+id);
+    }
+    async findPostsByMonth() {
+        console.log("[findPostsByMonth] controller");
+        return await this.postService.findPostsByMonth();
     }
     update(id, updatePostDto, user) {
         return this.postService.update(+id, updatePostDto, user.id);
@@ -45,7 +49,6 @@ let PostController = class PostController {
 };
 exports.PostController = PostController;
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({
         summary: "[서비스] 게시글 생성",
@@ -79,6 +82,16 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)("monthly/list"),
+    (0, swagger_1.ApiOperation)({
+        summary: "[서비스] 최근 1개월 게시글 조회",
+        description: "최근 1개월 동안 작성된 게시글을 조회합니다",
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], PostController.prototype, "findPostsByMonth", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(":id"),

@@ -74,6 +74,8 @@ let PostService = class PostService {
             .skip(query.start || 0)
             .take(query.limit || 20)
             .getManyAndCount();
+        console.log("[findAll] data:", data);
+        console.log("[findAll] totalCount:", totalCount);
         return { data, totalCount };
     }
     async findOne(id) {
@@ -85,6 +87,19 @@ let PostService = class PostService {
             throw new common_1.NotFoundException("Post not found");
         }
         return post;
+    }
+    async findPostsByMonth() {
+        const oneMonthAgo = new Date();
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+        console.log("[findPostsByMonth] oneMonthAgo:");
+        console.log(oneMonthAgo);
+        const qb = this.postRepository
+            .createQueryBuilder("posts")
+            .leftJoinAndSelect("posts.category", "category")
+            .leftJoinAndSelect("posts.subcategory", "subcategory")
+            .where("posts.createdAt >= :oneMonthAgo", { oneMonthAgo })
+            .orderBy("posts.createdAt", "DESC");
+        return qb.getMany();
     }
     async update(id, updatePostDto, userId) {
         const post = await this.postRepository.findOne({ where: { id } });

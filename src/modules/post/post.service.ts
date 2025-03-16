@@ -80,7 +80,8 @@ export class PostService {
       .skip(query.start || 0)
       .take(query.limit || 20)
       .getManyAndCount();
-
+    console.log("[findAll] data:", data);
+    console.log("[findAll] totalCount:", totalCount);
     return { data, totalCount };
   }
 
@@ -93,6 +94,21 @@ export class PostService {
       throw new NotFoundException("Post not found");
     }
     return post;
+  }
+
+  async findPostsByMonth() {
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+    console.log("[findPostsByMonth] oneMonthAgo:");
+    console.log(oneMonthAgo);
+    const qb = this.postRepository
+      .createQueryBuilder("posts")
+      .leftJoinAndSelect("posts.category", "category")
+      .leftJoinAndSelect("posts.subcategory", "subcategory")
+      .where("posts.createdAt >= :oneMonthAgo", { oneMonthAgo })
+      .orderBy("posts.createdAt", "DESC");
+
+    return qb.getMany();
   }
 
   async update(id: number, updatePostDto: UpdatePostDto, userId: number) {

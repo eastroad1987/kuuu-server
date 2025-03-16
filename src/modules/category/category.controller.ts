@@ -45,7 +45,7 @@ export class CategoryController {
     return this.categoryService.findAll(query);
   }
 
-  @Get()
+  @Get("all")
   @ApiOperation({
     summary: "[서비스] 카테고리 목록 조회",
     description: "카테고리 목록을 조회합니다",

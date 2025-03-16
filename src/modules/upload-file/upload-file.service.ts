@@ -46,6 +46,7 @@ export class UploadFileService {
 
   async uploadFile(files: Express.MulterS3.File[]) {
     const uploadfiles = [];
+    console.log("files:", files);
     for (const element of files) {
       const file = new UploadFile();
       file.originalName = element.originalname;

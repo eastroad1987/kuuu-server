@@ -10,7 +10,7 @@ export declare class PostController {
         authorId: number;
         title: string;
         content: string;
-        summary: string;
+        summary?: string;
         thumbnail?: string;
         referencePlace?: string;
         images?: string;
@@ -23,6 +23,7 @@ export declare class PostController {
         totalCount: number;
     }>;
     findOne(id: string): Promise<import("./entities/post.entity").Post>;
+    findPostsByMonth(): Promise<import("./entities/post.entity").Post[]>;
     update(id: string, updatePostDto: UpdatePostDto, user: User): Promise<import("typeorm").UpdateResult>;
     remove(id: string, user: User): Promise<import("typeorm").DeleteResult>;
 }

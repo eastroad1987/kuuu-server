@@ -78,12 +78,12 @@ CREATE TABLE IF NOT EXISTS upload_files (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL,
-    name VARCHAR(255),
-    original_name VARCHAR(255),
+    name TEXT NULL,
+    original_name TEXT NULL,
     encoding VARCHAR(255),
     mime_type VARCHAR(255),
     size DECIMAL(10,2),
-    url VARCHAR(255)
+    url TEXT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- users 테이블 생성

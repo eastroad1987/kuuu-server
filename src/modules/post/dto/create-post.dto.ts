@@ -13,9 +13,9 @@ export class CreatePostDto {
   content: string;
 
   @ApiProperty({ description: "요약" })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  summary: string;
+  summary?: string;
 
   @ApiProperty({ description: "썸네일", required: false })
   @IsOptional()

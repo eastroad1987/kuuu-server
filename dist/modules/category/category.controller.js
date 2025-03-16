@@ -72,7 +72,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CategoryController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)("all"),
     (0, swagger_1.ApiOperation)({
         summary: "[서비스] 카테고리 목록 조회",
         description: "카테고리 목록을 조회합니다",
