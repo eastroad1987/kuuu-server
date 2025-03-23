@@ -102,3 +102,30 @@ CREATE TABLE IF NOT EXISTS users (
     image_url VARCHAR(255) NULL,
     sns_id VARCHAR(255) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+INSERT INTO kuuu_db.categories
+(title, created_at, updated_at, deleted_at) VALUES
+('Musical&Movie', '2025-02-02 12:38:56', '2025-02-02 12:38:56', NULL),
+('Life', '2025-02-02 12:38:56', '2025-02-02 12:38:56', NULL),
+('Cafe&Restrant', '2025-02-02 12:38:56', '2025-02-02 12:38:56', NULL),
+('Sightseeing', '2025-02-02 12:38:56', '2025-02-02 12:38:56', NULL);
+
+
+INSERT INTO kuuu_db.sub_categories
+(created_at, updated_at, deleted_at, title, anonymous_yn, title_yn, content_yn, thumbnail_yn, reference_place_yn, secret_yn, images_yn, attach_files_yn, comment_yn, view_cnt_yn, category_id)
+VALUES('2025-02-02 12:42:04', '2025-02-02 12:42:04', NULL, 'Japan', 'N', 'Y', 'Y', 'N', 'Y', 'N', 'Y', 'N', 'N', 'Y', 1),
+('2025-02-02 12:42:04', '2025-02-02 12:42:04', NULL, 'Korea', 'N', 'Y', 'Y', 'N', 'Y', 'N', 'Y', 'N', 'N', 'Y', 1),
+('2025-02-02 12:42:04', '2025-02-02 12:42:04', NULL, 'Movie', 'N', 'Y', 'Y', 'N', 'N', 'N', 'Y', 'N', 'N', 'Y', 1),
+('2025-02-02 12:42:04', '2025-02-02 12:42:04', NULL, 'Others', 'N', 'Y', 'Y', 'N', 'N', 'N', 'Y', 'Y', 'N', 'Y', 1),
+('2025-02-02 12:47:34', '2025-02-02 12:47:34', NULL, 'Japan', 'N', 'Y', 'Y', 'Y', 'Y', 'N', 'Y', 'N', 'N', 'Y', 2),
+('2025-02-02 12:47:34', '2025-02-02 12:47:34', NULL, 'Korea', 'N', 'Y', 'Y', 'Y', 'Y', 'N', 'Y', 'N', 'N', 'Y', 2),
+('2025-02-02 12:47:34', '2025-02-02 12:47:34', NULL, 'Marriage', 'N', 'Y', 'Y', 'Y', 'N', 'N', 'Y', 'N', 'N', 'Y', 2),
+('2025-02-02 12:47:34', '2025-02-02 12:47:34', NULL, 'Mart Shopping', 'N', 'Y', 'Y', 'Y', 'Y', 'N', 'Y', 'N', 'N', 'Y', 2),
+('2025-02-02 12:47:34', '2025-02-02 12:47:34', NULL, 'Others', 'N', 'Y', 'Y', 'Y', 'N', 'N', 'Y', 'Y', 'N', 'Y', 2),
+('2025-02-02 12:48:59', '2025-02-02 12:48:59', NULL, 'Seoul Cafe', 'N', 'Y', 'Y', 'Y', 'Y', 'N', 'Y', 'N', 'N', 'Y', 3),
+('2025-02-02 12:48:59', '2025-02-02 12:48:59', NULL, 'Seoul Restrant', 'N', 'Y', 'Y', 'Y', 'Y', 'N', 'Y', 'N', 'N', 'Y', 3),
+('2025-02-02 12:48:59', '2025-02-02 12:48:59', NULL, 'Tokyo Cafe', 'N', 'Y', 'Y', 'Y', 'Y', 'N', 'Y', 'N', 'N', 'Y', 3),
+('2025-02-02 12:48:59', '2025-02-02 12:48:59', NULL, 'Tokyo Restrant', 'N', 'Y', 'Y', 'Y', 'Y', 'N', 'Y', 'N', 'N', 'Y', 3),
+('2025-02-02 12:48:59', '2025-02-02 12:48:59', NULL, 'Others', 'N', 'Y', 'Y', 'Y', 'N', 'N', 'Y', 'Y', 'N', 'Y', 3),
+('2025-02-02 12:49:25', '2025-02-02 12:49:25', NULL, 'Others', 'N', 'Y', 'Y', 'Y', 'Y', 'N', 'Y', 'N', 'N', 'Y', 4);
