@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS posts (
     view_cnt INT DEFAULT 0,
     subcategory_id BIGINT,
     category_id BIGINT NOT NULL,
-    FOREIGN KEY (subcategory_id) REFERENCES subcategories (id) ON DELETE SET NULL,
+    FOREIGN KEY (subcategory_id) REFERENCES sub_categories (id) ON DELETE SET NULL,
     FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
