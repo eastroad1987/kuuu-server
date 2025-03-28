@@ -2,6 +2,7 @@
 
 IMAGE_NAME="kuuu-db-image-prod"
 CONTAINER_NAME="kuuu-db-container-prod"
+NETWORK_NAME="kuuu-network-prod"
 VOLUME_NAME="kuuu-data"
 DB_NAME="kuuu_db"
 DB_USER="kuuu"
@@ -26,6 +27,7 @@ docker build --tag $IMAGE_NAME .
 echo "Starting container..."
 docker run -d \
     --name $CONTAINER_NAME \
+    --network $NETWORK_NAME \
     -e MYSQL_DATABASE=$DB_NAME \
     -e MYSQL_USER=$DB_USER \
     -e MYSQL_PASSWORD=$DB_PASSWORD \
