@@ -17,8 +17,8 @@ WORKDIR /var/app
 COPY . .
 
 # 모듈 설치 및 빌드
-RUN yarn install
-RUN yarn build
+RUN npm install
+RUN npm run build
 
 # 3001 포트 열기(main.ts 에 지정된 포트 번호를 입력한다. 원래 기본은 3000)
 EXPOSE 4000
@@ -27,4 +27,4 @@ EXPOSE 4000
 # dist/main.js 는 node 키워드로 실행하고자 하는 파일의 경로이다.
 # 즉, 도커 컨테이너가 실행될 때 dist/mian.js 를 같이 실행(node) 한다.
 # CMD [ "node","dist/main.js" ]
-CMD [ "yarn","start" ]
+CMD [ "npm","start" ]
