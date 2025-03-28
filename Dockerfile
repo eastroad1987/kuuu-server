@@ -2,8 +2,6 @@
 # NodeJS 버전 중 20 번대를 선택하여 이미지를 가져온다. 
 FROM node:18-alpine
 
-RUN apk add --no-cache libc6-compat  &&  ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
-
 # RUN:  지정한 명령어 실행
 # mkdir -p /var/app : 컨테이너 내부에 경로 생성
 # -p : 부모 디렉토리가 없으면 경고 없이 경로를 생성한다.
