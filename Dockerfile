@@ -1,6 +1,6 @@
 # FROM: 사용할 도커 이미지 설정
 # NodeJS 버전 중 20 번대를 선택하여 이미지를 가져온다. 
-FROM node:18
+FROM node:18-alpine
 
 # RUN:  지정한 명령어 실행
 # mkdir -p /var/app : 컨테이너 내부에 경로 생성
@@ -26,4 +26,5 @@ EXPOSE 4000
 # node 는 Node 환경에서 파일을 실행 시 사용되는 키워드이다.
 # dist/main.js 는 node 키워드로 실행하고자 하는 파일의 경로이다.
 # 즉, 도커 컨테이너가 실행될 때 dist/mian.js 를 같이 실행(node) 한다.
-CMD [ "node","dist/main.js" ]
+# CMD [ "node","dist/main.js" ]
+CMD [ "yarn","start" ]
