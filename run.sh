@@ -22,7 +22,7 @@ docker build -t $IMAGE_NAME .
 echo "Starting container..."
 docker run -d \
     --name $CONTAINER_NAME \
-    --network $NETWORK_NAME \
+    --net $NETWORK_NAME \
     -p $PORT:$PORT \
     $IMAGE_NAME
 

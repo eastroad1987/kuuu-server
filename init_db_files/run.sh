@@ -27,7 +27,7 @@ docker build --tag $IMAGE_NAME .
 echo "Starting container..."
 docker run -d \
     --name $CONTAINER_NAME \
-    --network $NETWORK_NAME \
+    --net $NETWORK_NAME \
     -e MYSQL_DATABASE=$DB_NAME \
     -e MYSQL_USER=$DB_USER \
     -e MYSQL_PASSWORD=$DB_PASSWORD \
@@ -50,7 +50,7 @@ echo "Database is ready!"
 
 # root 사용자로 권한 부여
 echo "Granting privileges to user..."
-docker exec -i $CONTAINER_NAME mysql -uroot << EOF
+docker exec -it $CONTAINER_NAME mysql -uroot << EOF
 CREATE DATABASE IF NOT EXISTS $DB_NAME
     CHARACTER SET = 'utf8mb4'
     COLLATE = 'utf8mb4_unicode_ci';
@@ -60,7 +60,7 @@ FLUSH PRIVILEGES;
 EOF
 
 echo "Container started. To access the database, use:"
-docker exec -i $CONTAINER_NAME mysql -u$DB_USER -p$DB_PASSWORD $DB_NAME < $SQL_FILE
+docker exec -it $CONTAINER_NAME mysql -u$DB_USER -p$DB_PASSWORD $DB_NAME < $SQL_FILE
 
 # 테이블 목록 확인
-docker exec -i $CONTAINER_NAME mysql -u$DB_USER -p$DB_PASSWORD $DB_NAME -e "SHOW TABLES;"
+docker exec -it $CONTAINER_NAME mysql -u$DB_USER -p$DB_PASSWORD $DB_NAME -e "SHOW TABLES;"
