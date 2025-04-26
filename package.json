@@ -6,7 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "node --max-old-space-size=1024 node_modules/.bin/nest build",
+    "prebuild": "rimraf dist",
+    "build": "npm run prebuild && node --max-old-space-size=1024 node_modules/.bin/nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "dev": "cross-env NODE_ENV=dev node --max-old-space-size=1024 node_modules/.bin/nest start --watch",
     "start": "node --max-old-space-size=1024 node_modules/.bin/nest start",
