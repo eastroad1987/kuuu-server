@@ -12,7 +12,6 @@ import { APP_INTERCEPTOR } from "@nestjs/core";
 import { AppController } from "app.controller";
 import { AppService } from "app.service";
 import { LoggerMiddleware } from "common/middleware/logger.middleware";
-import { TerminusModule } from "@nestjs/terminus";
 import { UserModule } from "modules/user/user.module";
 
 import { UploadFileModule } from "modules/upload-file/upload-file.module";
@@ -48,7 +47,7 @@ switch (process.env.NODE_ENV) {
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         return {
-          type: "mysql",
+          type: "postgres",
           timezone: "+09:00",
           host: configService.get("MYSQL_HOST"),
           port: configService.get<number>("MYSQL_PORT"),
@@ -65,7 +64,6 @@ switch (process.env.NODE_ENV) {
       },
       inject: [ConfigService],
     }),
-    TerminusModule,
     UserModule,
     AuthModule,
     CategoryModule,
