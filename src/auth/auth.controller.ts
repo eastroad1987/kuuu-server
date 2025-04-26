@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { BaseController } from "common/controller/base.controller";
 import { CreateUserDto } from "modules/user/dto/create-user.dto";
 import { UserDeco } from "../common/decorator/user.decorator";
@@ -9,7 +8,6 @@ import { JwtAuthGuard } from "./strategy/jwt-auth.guard";
 import { LocalAuthGuard } from "./strategy/local-auth.guard";
 import { JwtRefreshGuard } from "./strategy/refresh-token.guard";
 
-@ApiTags("인증")
 @Controller("auth")
 export class AuthController extends BaseController {
   constructor(private authService: AuthService) {
@@ -26,7 +24,7 @@ export class AuthController extends BaseController {
   async loginAdmin(@Body() authDto: AuthDto) {
     return await this.authService.loginAdmin(authDto);
   }
-  @ApiBearerAuth()
+
   @Get("me")
   @UseGuards(JwtAuthGuard)
   async findUser(@UserDeco() user) {

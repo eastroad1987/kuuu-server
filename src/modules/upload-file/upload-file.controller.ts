@@ -14,7 +14,6 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { FileInterceptor } from "@nestjs/platform-express/multer/interceptors/file.interceptor";
 import { FilesInterceptor } from "@nestjs/platform-express/multer/interceptors/files.interceptor";
-import { ApiTags } from "@nestjs/swagger";
 import * as AWS from "aws-sdk";
 import "dotenv/config";
 import * as multerS3 from "multer-s3";
@@ -31,7 +30,6 @@ const s3Client = new S3Client({
   },
 });
 
-@ApiTags("[공통] 파일 업로드")
 @Controller("upload-file")
 export class UploadFileController {
   private bucket: string;
