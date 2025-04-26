@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "node --max-old-space-size=512 node_modules/.bin/nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "dev": "cross-env NODE_ENV=dev node --max-old-space-size=512 node_modules/.bin/nest start --watch",
@@ -41,6 +42,7 @@
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
     "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
