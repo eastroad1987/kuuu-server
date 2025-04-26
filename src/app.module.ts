@@ -55,6 +55,7 @@ switch (process.env.NODE_ENV) {
           password: configService.get("MYSQL_PASSWORD"),
           database: configService.get("MYSQL_DATABASE"),
           entities: [__dirname + "/**/*.entity{.ts,.js}"],
+          ssl: true,
           dropSchema: false,
           synchronize: false,
           logging: true,
