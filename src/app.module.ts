@@ -12,7 +12,6 @@ import { APP_INTERCEPTOR } from "@nestjs/core";
 import { AppController } from "app.controller";
 import { AppService } from "app.service";
 import { LoggerMiddleware } from "common/middleware/logger.middleware";
-import { HealthCheckController } from "modules/health-check/health-check.controller";
 import { TerminusModule } from "@nestjs/terminus";
 import { UserModule } from "modules/user/user.module";
 
@@ -76,7 +75,7 @@ switch (process.env.NODE_ENV) {
     UploadFileModule,
     UnitOfWorkModule,
   ],
-  controllers: [AppController, HealthCheckController],
+  controllers: [AppController],
   providers: [AppService, { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor }],
 })
 export class AppModule implements NestModule {
