@@ -134,7 +134,7 @@ export class UserService {
     delete updateUserDto.currentPassword;
     delete updateUserDto.newPassword;
 
-    await this.userRepository.update(id, updateUserDto);
+    await this.userRepository.update(id, updateUserDto as any);
     return this.findOne(id);
   }
 

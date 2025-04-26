@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
 const common_1 = require("@nestjs/common");
 const app_module_1 = require("./app.module");
-const swagger_1 = require("@nestjs/swagger");
 const trim_strings_pipe_1 = require("./common/transformer/trim-strings.pipe");
 const helmet_1 = require("helmet");
 const compression = require("compression");
@@ -13,15 +12,6 @@ const express_1 = require("express");
 async function bootstrap() {
     var _a;
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    const options = new swagger_1.DocumentBuilder()
-        .setTitle("99-F API")
-        .setDescription("99-F API description")
-        .setVersion("1.0")
-        .addTag("99-F")
-        .addBearerAuth()
-        .build();
-    const document = swagger_1.SwaggerModule.createDocument(app, options);
-    swagger_1.SwaggerModule.setup("document", app, document);
     app.useGlobalPipes(new trim_strings_pipe_1.TrimStringsPipe(), new common_1.ValidationPipe({
         whitelist: true,
         forbidNonWhitelisted: true,

@@ -1,7 +1,6 @@
 import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
 import { AppModule } from "./app.module";
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { TrimStringsPipe } from "common/transformer/trim-strings.pipe";
 import helmet from "helmet";
 import * as compression from "compression";
@@ -11,15 +10,6 @@ import { urlencoded, json } from "express";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const options = new DocumentBuilder()
-    .setTitle("99-F API")
-    .setDescription("99-F API description")
-    .setVersion("1.0")
-    .addTag("99-F")
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup("document", app, document);
   app.useGlobalPipes(
     new TrimStringsPipe(),
     new ValidationPipe({

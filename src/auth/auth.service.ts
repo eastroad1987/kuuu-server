@@ -80,7 +80,7 @@ export class AuthService {
   private async verifyPassword(plainTextPassword: string, user: User) {
     const isPasswordMatch = await compare(plainTextPassword, user.password);
     if (!isPasswordMatch) {
-      await this.userService.update(user.id, user);
+      await this.userService.update(user.id, user as any);
       throw new HttpException("비밀번호가 일치하지 않습니다!!", HttpStatus.BAD_REQUEST);
     }
   }

@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateSubCategoryDto = void 0;
-const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const YnEnums_1 = require("../../../common/constants/YnEnums");
 class CreateSubCategoryDto {
@@ -29,74 +28,52 @@ class CreateSubCategoryDto {
 }
 exports.CreateSubCategoryDto = CreateSubCategoryDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "서브 카테고리 제목" }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "title", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "카테고리 ID" }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateSubCategoryDto.prototype, "categoryId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "익명 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "anonymousYn", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "제목 사용 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "titleYn", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "내용 사용 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "contentYn", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "썸네일 사용 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "thumbnailYn", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "참조 장소 사용 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "referencePlaceYn", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "비밀글 사용 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "secretYn", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "이미지 사용 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "imagesYn", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "첨부파일 사용 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "attachFilesYn", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "댓글 사용 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "commentYn", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "조회수 사용 여부", enum: YnEnums_1.YnEnums }),
-    (0, class_validator_1.IsEnum)(YnEnums_1.YnEnums),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "viewCntYn", void 0);

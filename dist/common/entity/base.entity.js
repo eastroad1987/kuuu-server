@@ -11,27 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseModel = void 0;
 const typeorm_1 = require("typeorm");
-const swagger_1 = require("@nestjs/swagger");
 class BaseModel {
 }
 exports.BaseModel = BaseModel;
 __decorate([
-    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], BaseModel.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ name: "created_at", type: "timestamp", default: () => "CURRENT_TIMESTAMP" }),
     __metadata("design:type", Date)
 ], BaseModel.prototype, "createdAt", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.UpdateDateColumn)({ name: "updated_at", type: "timestamp", nullable: true }),
     __metadata("design:type", Date)
 ], BaseModel.prototype, "updatedAt", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ name: "deleted_at", type: "timestamp", nullable: true }),
     __metadata("design:type", Date)
 ], BaseModel.prototype, "deletedAt", void 0);

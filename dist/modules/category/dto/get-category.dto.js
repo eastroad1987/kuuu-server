@@ -10,29 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetCategoryDto = void 0;
-const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class GetCategoryDto {
 }
 exports.GetCategoryDto = GetCategoryDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "검색할 카테고리 제목", required: false }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], GetCategoryDto.prototype, "title", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "시작 위치", required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], GetCategoryDto.prototype, "start", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "가져올 항목 수", required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], GetCategoryDto.prototype, "limit", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "정렬 (예: createdAt:DESC)", required: false }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
