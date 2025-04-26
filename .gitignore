@@ -35,7 +35,7 @@ Thumbs.db
 /coverage
 
 # 임시 파일
-*.swp
+wp
 *.swo
 .tmp/
 
