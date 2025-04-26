@@ -1,5 +1,4 @@
 # 컴파일된 결과물
-/dist
 /build
 /out
 
@@ -62,3 +61,4 @@ wp
 
 # 로컬 설정 파일
 *.local 
+.vercel
