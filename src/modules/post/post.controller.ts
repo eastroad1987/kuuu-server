@@ -17,7 +17,6 @@ import { GetPostDto } from "./dto/get-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
 import { PostService } from "./post.service";
 
-@ApiTags("[Service] 게시글")
 @Controller("posts")
 export class PostController {
   constructor(private readonly postService: PostService) {}
