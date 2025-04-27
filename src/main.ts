@@ -34,7 +34,7 @@ async function bootstrap() {
     methods: "GET,HEAD,PUT,POST,DELETE,OPTIONS,PATCH",
     credentials: true,
   });
-  // await app.listen(process.env.PORT ?? 4000);
+  await app.listen(process.env.PORT ?? 3000);
   app.setGlobalPrefix("api");
   await app.init();
 }
