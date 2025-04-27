@@ -1,8 +1,8 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { ExpressAdapter } from "@nestjs/platform-express";
-import * as compression from "compression";
-import * as cookieParser from "cookie-parser";
+import compression from "compression";
+import cookieParser from "cookie-parser";
 import express, { json, urlencoded } from "express";
 import { AppModule } from "../src/app.module";
 import { TrimStringsPipe } from "../src/common/transformer/trim-strings.pipe";
