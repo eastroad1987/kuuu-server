@@ -3,7 +3,7 @@ import { AppModule } from "../src/app.module";
 import { ExpressAdapter } from "@nestjs/platform-express";
 import express from "express";
 import serverless from "serverless-http";
-import { TrimStringsPipe } from "@/common/transformer/trim-strings.pipe";
+import { TrimStringsPipe } from "../src/common/transformer/trim-strings.pipe";
 import { ValidationPipe } from "@nestjs/common";
 
 const expressApp = express();
