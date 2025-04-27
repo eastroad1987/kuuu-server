@@ -3,6 +3,8 @@ import { AppModule } from "../src/app.module";
 import { ExpressAdapter } from "@nestjs/platform-express";
 import express from "express";
 import serverless from "serverless-http";
+import { TrimStringsPipe } from "@/common/transformer/trim-strings.pipe";
+import { ValidationPipe } from "@nestjs/common";
 
 const expressApp = express();
 const adapter = new ExpressAdapter(expressApp);
@@ -16,6 +18,24 @@ async function bootstrap() {
       abortOnError: false,
     });
     app.enableCors();
+    app.useGlobalPipes(
+      new TrimStringsPipe(),
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+      })
+    );
+    app.enableCors({
+      origin: true,
+      methods: "GET,HEAD,PUT,POST,DELETE,OPTIONS,PATCH",
+      credentials: true,
+    });
+    // await app.listen(process.env.PORT ?? 4000);
+    app.setGlobalPrefix("api");
     await app.init();
     server = serverless(expressApp);
   }
