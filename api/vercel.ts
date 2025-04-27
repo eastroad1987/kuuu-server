@@ -7,18 +7,23 @@ import serverless from "serverless-http";
 const expressApp = express();
 const adapter = new ExpressAdapter(expressApp);
 
+let server: any;
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, adapter);
-  app.enableCors();
-  await app.init();
-  return serverless(expressApp);
+  if (!server) {
+    const app = await NestFactory.create(AppModule, adapter, {
+      logger: false,
+      abortOnError: false,
+    });
+    app.enableCors();
+    await app.init();
+    server = serverless(expressApp);
+  }
+  return server;
 }
 
-let server: any;
 const handler = async (event: any, context: any) => {
-  if (!server) {
-    server = await bootstrap();
-  }
+  const server = await bootstrap();
   return server(event, context);
 };
 
