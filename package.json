@@ -9,8 +9,8 @@
     "prebuild": "rimraf dist",
     "build": "tsc && nest build",
     "vercel-build": "yarn build",
-    "start": "node dist/api/vercel.js",
-    "start:prod": "node dist/api/vercel.js",
+    "start": "node dist/main.js",
+    "start:prod": "node dist/main.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "dev": "cross-env NODE_ENV=dev node --max-old-space-size=1024 node_modules/.bin/nest start --watch",
     "start:dev": "node --max-old-space-size=1024 node_modules/.bin/nest start --watch",
@@ -61,7 +61,8 @@
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20",
     "vercel": "^41.6.2",
-    "webpack": "^5.97.0"
+    "webpack": "^5.97.0",
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "@vercel/node": "^3.0.0",

@@ -6,25 +6,23 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2020",
+    "target": "es2017",
     "sourceMap": true,
-    "outDir": "dist",
-    "rootDir": ".",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
+    "outDir": "./dist",
+    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "esModuleInterop": true,
+    "moduleResolution": "node"
   },
-  "exclude": [
-    "test",
-    "tests",
-    "**/*.spec.ts",
-    "src/**/*.e2e-spec.ts"
-  ]
+  "include": ["src/**/*", "api/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*.spec.ts"]
 }
