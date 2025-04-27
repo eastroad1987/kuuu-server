@@ -13,7 +13,7 @@ import { urlencoded, json } from "express";
 const server = express();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, new ExpressAdapter());
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
   app.useGlobalPipes(
     new TrimStringsPipe(),
     new ValidationPipe({
