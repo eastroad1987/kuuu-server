@@ -1,7 +1,7 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { ExpressAdapter } from "@nestjs/platform-express";
-import compression from "compression";
+// import compression from "compression";
 import cookieParser from "cookie-parser";
 import express, { json, urlencoded } from "express";
 import { AppModule } from "../src/app.module";
@@ -29,7 +29,7 @@ async function bootstrap() {
     })
   );
 
-  app.use(compression());
+  // app.use(compression());
   app.use(json({ limit: "50mb" }));
   app.use(urlencoded({ extended: true, limit: "50mb" }));
   app.use(cookieParser());
