@@ -6,10 +6,14 @@ import helmet from "helmet";
 import * as compression from "compression";
 import * as requestIp from "request-ip";
 import * as cookieParser from "cookie-parser";
+import * as express from "express";
+import { ExpressAdapter } from "@nestjs/platform-express";
 import { urlencoded, json } from "express";
 
+const server = express();
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, new ExpressAdapter());
   app.useGlobalPipes(
     new TrimStringsPipe(),
     new ValidationPipe({
@@ -32,6 +36,9 @@ async function bootstrap() {
     methods: "GET,HEAD,PUT,POST,DELETE,OPTIONS,PATCH",
     credentials: true,
   });
-  await app.listen(process.env.PORT ?? 4000);
+  // await app.listen(process.env.PORT ?? 4000);
+  await app.init();
 }
 bootstrap();
+
+export const handler = server;
