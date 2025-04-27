@@ -1,8 +1,8 @@
-import { BaseModel } from "common/entity/base.entity";
-import { YnEnums } from "common/constants/YnEnums";
-import { Category } from "modules/category/entities/category.entity";
+import { BaseModel } from "../../../common/entity/base.entity";
+import { YnEnums } from "../../../common/constants/YnEnums";
+import { Category } from "../../category/entities/category.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { KuuuTableEnums, SubCategoryEnums } from "common/constants/KuuuTableEnums";
+import { KuuuTableEnums, SubCategoryEnums } from "../../../common/constants/KuuuTableEnums";
 
 @Entity(KuuuTableEnums.SUBCATEGORY)
 export class SubCategory extends BaseModel {

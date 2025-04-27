@@ -9,19 +9,19 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { APP_INTERCEPTOR } from "@nestjs/core";
-import { AppController } from "app.controller";
-import { AppService } from "app.service";
-import { LoggerMiddleware } from "common/middleware/logger.middleware";
-import { UserModule } from "modules/user/user.module";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { LoggerMiddleware } from "./common/middleware/logger.middleware";
+import { UserModule } from "./modules/user/user.module";
 
-import { UploadFileModule } from "modules/upload-file/upload-file.module";
-import { UnitOfWorkModule } from "common/unit-of-work/unitofwork.module";
+import { UploadFileModule } from "./modules/upload-file/upload-file.module";
+import { UnitOfWorkModule } from "./common/unit-of-work/unitofwork.module";
 
-import { AuthModule } from "auth/auth.module";
-import { CategoryModule } from "modules/category/category.module";
-import { CommentModule } from "modules/comment/comment.module";
-import { PostModule } from "modules/post/post.module";
-import { SubCategoryModule } from "modules/sub-category/sub-category.module";
+import { AuthModule } from "./auth/auth.module";
+import { CategoryModule } from "./modules/category/category.module";
+import { CommentModule } from "./modules/comment/comment.module";
+import { PostModule } from "./modules/post/post.module";
+import { SubCategoryModule } from "./modules/sub-category/sub-category.module";
 
 let envFilePath;
 switch (process.env.NODE_ENV) {

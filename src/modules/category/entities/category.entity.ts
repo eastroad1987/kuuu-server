@@ -1,6 +1,6 @@
-import { CategoryEnums, KuuuTableEnums } from "common/constants/KuuuTableEnums";
-import { BaseModel } from "common/entity/base.entity";
-import { SubCategory } from "modules/sub-category/entities/sub-category.entity";
+import { CategoryEnums, KuuuTableEnums } from "../../../common/constants/KuuuTableEnums";
+import { BaseModel } from "../../../common/entity/base.entity";
+import { SubCategory } from "../../../modules/sub-category/entities/sub-category.entity";
 import { Column, Entity, OneToMany } from "typeorm";
 
 @Entity(KuuuTableEnums.CATEGORY)

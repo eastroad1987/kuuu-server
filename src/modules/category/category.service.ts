@@ -52,9 +52,6 @@ export class CategoryService {
   async findCategories() {
     return this.categoryRepository.find({
       relations: ["subcategories"],
-      order: {
-        createdAt: "DESC",
-      },
     });
   }
 

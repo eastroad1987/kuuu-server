@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { YnEnums } from "common/constants/YnEnums";
+import { YnEnums } from "../../../common/constants/YnEnums";
 
 export class CreateSubCategoryDto {
   @IsNotEmpty()

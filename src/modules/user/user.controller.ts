@@ -9,10 +9,10 @@ import {
   UnauthorizedException,
   UseGuards,
 } from "@nestjs/common";
-import { JwtAuthGuard } from "auth/strategy/jwt-auth.guard";
-import { Roles } from "common/decorator/roles.decorator";
-import { UserDeco } from "common/decorator/user.decorator";
-import { RolesGuard } from "common/guard/roles.guards";
+import { JwtAuthGuard } from "../../auth/strategy/jwt-auth.guard";
+import { Roles } from "../../common/decorator/roles.decorator";
+import { UserDeco } from "../../common/decorator/user.decorator";
+import { RolesGuard } from "../../common/guard/roles.guards";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { LoginDto } from "./dto/login.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";

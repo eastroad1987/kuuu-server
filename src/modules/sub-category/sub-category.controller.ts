@@ -9,7 +9,7 @@ import {
   Query,
   UseGuards,
 } from "@nestjs/common";
-import { JwtAuthGuard } from "auth/strategy/jwt-auth.guard";
+import { JwtAuthGuard } from "../../auth/strategy/jwt-auth.guard";
 import { CreateSubCategoryDto } from "./dto/create-sub-category.dto";
 import { GetSubCategoryDto } from "./dto/get-sub-category.dto";
 import { UpdateSubCategoryDto } from "./dto/update-sub-category.dto";

@@ -9,15 +9,14 @@ import {
   Query,
   UseGuards,
 } from "@nestjs/common";
-import { JwtAuthGuard } from "auth/strategy/jwt-auth.guard";
-
-import { Roles } from "common/decorator/roles.decorator";
-import { UserRole } from "modules/user/entities/user.entity";
+import { JwtAuthGuard } from "../../auth/strategy/jwt-auth.guard";
+import { Roles } from "../../common/decorator/roles.decorator";
+import { UserRole } from "../../modules/user/entities/user.entity";
 import { CategoryService } from "./category.service";
 import { CreateCategoryDto } from "./dto/create-category.dto";
 import { GetCategoryDto } from "./dto/get-category.dto";
 import { UpdateCategoryDto } from "./dto/update-category.dto";
-import { RolesGuard } from "common/guard/roles.guards";
+import { RolesGuard } from "../../common/guard/roles.guards";
 
 @Controller("categories")
 export class CategoryController {

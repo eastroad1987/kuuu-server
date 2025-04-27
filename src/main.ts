@@ -1,14 +1,14 @@
-import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
-import { AppModule } from "./app.module";
-import { TrimStringsPipe } from "common/transformer/trim-strings.pipe";
-import helmet from "helmet";
-import * as compression from "compression";
-import * as requestIp from "request-ip";
-import * as cookieParser from "cookie-parser";
-import * as express from "express";
+import { NestFactory } from "@nestjs/core";
 import { ExpressAdapter } from "@nestjs/platform-express";
-import { urlencoded, json } from "express";
+import { TrimStringsPipe } from "./common/transformer/trim-strings.pipe";
+import * as compression from "compression";
+import * as cookieParser from "cookie-parser";
+import express from "express";
+import { json, urlencoded } from "express";
+import helmet from "helmet";
+import * as requestIp from "request-ip";
+import { AppModule } from "./app.module";
 
 const server = express();
 

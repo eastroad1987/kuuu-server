@@ -9,8 +9,8 @@ import {
   Query,
   UseGuards,
 } from "@nestjs/common";
-import { JwtAuthGuard } from "auth/strategy/jwt-auth.guard";
-import { UserDeco } from "common/decorator/user.decorator";
+import { JwtAuthGuard } from "../../auth/strategy/jwt-auth.guard";
+import { UserDeco } from "../../common/decorator/user.decorator";
 import { User } from "../user/entities/user.entity";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { GetPostDto } from "./dto/get-post.dto";

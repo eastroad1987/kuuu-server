@@ -10,8 +10,8 @@ import {
   UseGuards,
 } from "@nestjs/common";
 
-import { JwtAuthGuard } from "auth/strategy/jwt-auth.guard";
-import { UserDeco } from "common/decorator/user.decorator";
+import { JwtAuthGuard } from "../../auth/strategy/jwt-auth.guard";
+import { UserDeco } from "../../common/decorator/user.decorator";
 import { User } from "../user/entities/user.entity";
 import { CommentService } from "./comment.service";
 import { CreateCommentDto } from "./dto/create-comment.dto";

@@ -1,7 +1,7 @@
-import { Column, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, PrimaryColumn, UpdateDateColumn } from "typeorm";
 
 export class BaseModel {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: number;
 
   @Column({ name: "created_at", type: "timestamp", default: () => "CURRENT_TIMESTAMP" })

@@ -1,6 +1,6 @@
-import { KuuuTableEnums, UserEnums } from "common/constants/KuuuTableEnums";
-import { BaseModel } from "common/entity/base.entity";
 import { Column, Entity } from "typeorm";
+import { KuuuTableEnums, UserEnums } from "../../../common/constants/KuuuTableEnums";
+import { BaseModel } from "../../../common/entity/base.entity";
 
 export enum UserRole {
   USER = "user",

@@ -1,7 +1,7 @@
-import { CommentEnums, KuuuTableEnums } from "common/constants/KuuuTableEnums";
-import { BaseModel } from "common/entity/base.entity";
-import { Post } from "modules/post/entities/post.entity";
-import { User } from "modules/user/entities/user.entity";
+import { CommentEnums, KuuuTableEnums } from "../../../common/constants/KuuuTableEnums";
+import { BaseModel } from "../../../common/entity/base.entity";
+import { Post } from "../../post/entities/post.entity";
+import { User } from "../../user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity(KuuuTableEnums.COMMENT)

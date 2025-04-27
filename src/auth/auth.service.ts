@@ -6,9 +6,9 @@ import { compare, hash } from "bcrypt";
 import { TransactionalRepository } from "./../common/unit-of-work/transactional.repository";
 import { UnitOfWork } from "./../common/unit-of-work/unit-of-work.provider";
 
-import { CreateUserDto } from "modules/user/dto/create-user.dto";
-import { User } from "modules/user/entities/user.entity";
-import { UserService } from "modules/user/user.service";
+import { CreateUserDto } from "../modules/user/dto/create-user.dto";
+import { User } from "../modules/user/entities/user.entity";
+import { UserService } from "../modules/user/user.service";
 import { Repository } from "typeorm";
 import { AuthDto } from "./dto/auth.dto";
 import { AuthUserDto } from "./dto/auth.user";

@@ -1,6 +1,6 @@
 import { Column, Entity } from "typeorm";
 import { BaseModel } from "../../../common/entity/base.entity";
-import { KuuuTableEnums, UploadFileEnums } from "common/constants/KuuuTableEnums";
+import { KuuuTableEnums, UploadFileEnums } from "../../../common/constants/KuuuTableEnums";
 
 @Entity(KuuuTableEnums.UPLOAD_FILE)
 export class UploadFile extends BaseModel {

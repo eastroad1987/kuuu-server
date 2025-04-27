@@ -6,7 +6,7 @@ import { CreateSubCategoryDto } from "./dto/create-sub-category.dto";
 import { GetSubCategoryDto } from "./dto/get-sub-category.dto";
 import { UpdateSubCategoryDto } from "./dto/update-sub-category.dto";
 import { SubCategory } from "./entities/sub-category.entity";
-import { Post } from "modules/post/entities/post.entity";
+import { Post } from "../post/entities/post.entity";
 
 @Injectable()
 export class SubCategoryService {

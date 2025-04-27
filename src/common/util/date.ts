@@ -1,5 +1,5 @@
 import moment, { DurationInputArg1, DurationInputArg2 } from "moment";
-import * as momentTimezone from "moment-timezone";
+import momentTimezone from "moment-timezone";
 
 export const DATE_FORMAT = "yyyy-MM-DD";
 export const TIME_FORMAT = "HH:mm:ss";

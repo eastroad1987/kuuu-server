@@ -1,8 +1,8 @@
-import { KuuuTableEnums, PostEnums } from "common/constants/KuuuTableEnums";
-import { BaseModel } from "common/entity/base.entity";
-import { Category } from "modules/category/entities/category.entity";
-import { SubCategory } from "modules/sub-category/entities/sub-category.entity";
-import { User } from "modules/user/entities/user.entity";
+import { KuuuTableEnums, PostEnums } from "../../../common/constants/KuuuTableEnums";
+import { BaseModel } from "../../../common/entity/base.entity";
+import { Category } from "../../category/entities/category.entity";
+import { SubCategory } from "../../sub-category/entities/sub-category.entity";
+import { User } from "../../user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity(KuuuTableEnums.POST)

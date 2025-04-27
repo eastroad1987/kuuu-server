@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
-import { S3Service } from "providers/aws/aws-s3.service";
+import { S3Service } from "../../providers/aws/aws-s3.service";
 import { Repository } from "typeorm";
 import { UpdateUploadFileDto } from "./dto/update-upload-file.dto";
 import { UploadFile } from "./entities/upload-file.entity";

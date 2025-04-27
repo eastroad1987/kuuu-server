@@ -16,8 +16,8 @@ import { FileInterceptor } from "@nestjs/platform-express/multer/interceptors/fi
 import { FilesInterceptor } from "@nestjs/platform-express/multer/interceptors/files.interceptor";
 import * as AWS from "aws-sdk";
 import "dotenv/config";
-import * as multerS3 from "multer-s3";
-import { S3Service } from "providers/aws/aws-s3.service";
+import multerS3 from "multer-s3";
+import { S3Service } from "../../providers/aws/aws-s3.service";
 import { UpdateUploadFileDto } from "./dto/update-upload-file.dto";
 import { UploadFileService } from "./upload-file.service";
 import { S3Client } from "@aws-sdk/client-s3";
