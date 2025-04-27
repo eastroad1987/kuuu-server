@@ -40,4 +40,4 @@ async function bootstrap() {
 }
 bootstrap();
 
-export const handler = server;
+export default server;
