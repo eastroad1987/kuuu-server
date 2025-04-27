@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
-import { compare, hash } from "bcrypt";
+import { compare, hash } from "bcryptjs";
 import { TransactionalRepository } from "./../common/unit-of-work/transactional.repository";
 import { UnitOfWork } from "./../common/unit-of-work/unit-of-work.provider";
 
