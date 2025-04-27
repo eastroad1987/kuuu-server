@@ -1,15 +1,12 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { ExpressAdapter } from "@nestjs/platform-express";
-import { TrimStringsPipe } from "./common/transformer/trim-strings.pipe";
 import * as compression from "compression";
 import * as cookieParser from "cookie-parser";
-import express from "express";
-import { json, urlencoded } from "express";
-import helmet from "helmet";
-import * as requestIp from "request-ip";
+import express, { json, urlencoded } from "express";
 import { AppModule } from "./app.module";
-
+import { TrimStringsPipe } from "./common/transformer/trim-strings.pipe";
+import helmet from "helmet";
 const server = express();
 
 async function bootstrap() {
@@ -25,8 +22,8 @@ async function bootstrap() {
       },
     })
   );
-  
-  app.use(requestIp.mw());
+
+  // app.use(requestIp.mw());
   app.use(compression());
   app.use(json({ limit: "50mb" }));
   app.use(urlencoded({ extended: true, limit: "50mb" }));
