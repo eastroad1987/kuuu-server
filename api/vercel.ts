@@ -4,10 +4,11 @@ import { ExpressAdapter } from "@nestjs/platform-express";
 // import compression from "compression";
 import cookieParser from "cookie-parser";
 import express, { json, urlencoded } from "express";
-import { AppModule } from "../src/app.module";
-import { TrimStringsPipe } from "../src/common/transformer/trim-strings.pipe";
 import helmet from "helmet";
 import serverless from "serverless-http";
+import { AppModule } from "../src/app.module";
+import { TrimStringsPipe } from "../src/common/transformer/trim-strings.pipe";
+// import { handler } from '../src/main';
 
 const server = express();
 
@@ -53,7 +54,4 @@ const getHandler = async () => {
   return handler;
 };
 
-export default async (event: any, context: any) => {
-  const server = await getHandler();
-  return server(event, context);
-};
+export default getHandler();

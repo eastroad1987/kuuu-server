@@ -2,17 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/vercel.ts",
-      "use": "@vercel/node",
-      "config": {
-        "maxDuration": 30
-      }
+      "src": "dist/main.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/vercel.ts"
+      "dest": "dist/main.js"
     }
   ]
 }
