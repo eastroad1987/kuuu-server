@@ -25,6 +25,7 @@ async function bootstrap() {
       },
     })
   );
+  
   app.use(requestIp.mw());
   app.use(compression());
   app.use(json({ limit: "50mb" }));
@@ -37,6 +38,7 @@ async function bootstrap() {
     credentials: true,
   });
   // await app.listen(process.env.PORT ?? 4000);
+  app.setGlobalPrefix("api");
   await app.init();
 }
 bootstrap();
