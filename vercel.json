@@ -8,8 +8,8 @@
       "config": {
         "maxDuration": 60,
         "memory": 1024,
-        "includeFiles": ["dist/**/*"],
-        "excludeFiles": ["node_modules/@nestjs/core/node_modules/**/*"]
+        "includeFiles": ["dist/**/*", "node_modules/**/*"],
+        "excludeFiles": ["node_modules/.cache/**/*"]
       }
     },
     {
