@@ -1,28 +1,48 @@
 {
   "version": 2,
+  "functions": {
+    "api/minimal.js": {
+      "memory": 128,
+      "maxDuration": 10
+    },
+    "api/v1.js": {
+      "memory": 256,
+      "maxDuration": 10
+    },
+    "api/es-minimal.mjs": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  },
   "builds": [
     {
-      "src": "api/slim-vercel.ts",
-      "use": "@vercel/node",
-      "config": {
-        "maxDuration": 10
-      }
+      "src": "api/minimal.js",
+      "use": "@vercel/node"
     },
     {
-      "src": "api/health.ts",
+      "src": "api/v1.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/es-minimal.mjs",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/health",
-      "dest": "api/health.ts"
+      "src": "/minimal/(.*)",
+      "dest": "api/minimal.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "api/slim-vercel.ts"
+      "src": "/es/(.*)",
+      "dest": "api/es-minimal.mjs"
+    },
+    {
+      "src": "/api/(.*)|/(.*)",
+      "dest": "api/v1.js"
     }
   ],
+  "regions": ["icn1"],
   "env": {
     "NODE_ENV": "production"
   }

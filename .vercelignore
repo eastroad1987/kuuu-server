@@ -36,4 +36,16 @@ yarn-error.log*
 .gitignore
 Dockerfile
 docker-compose.yml
-README.md 
+README.md
+
+# 서버리스 함수에 불필요한 파일 제외
+dist
+src
+test
+coverage
+.git
+.github
+.vscode
+README.md
+.env*
+*.log 
