@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "npm install --legacy-peer-deps && npm run build",
   "builds": [
     {
       "src": "api/vercel.ts",
@@ -27,6 +28,7 @@
     }
   ],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "NPM_FLAGS": "--legacy-peer-deps"
   }
 }

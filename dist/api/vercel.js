@@ -49,7 +49,7 @@ async function bootstrap() {
     }
     return serverlessHandler;
 }
-const TIMEOUT = 30000;
+const TIMEOUT = 50000;
 exports.default = async (req, res) => {
     const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => {
@@ -69,7 +69,7 @@ exports.default = async (req, res) => {
     try {
         await Promise.race([handlerPromise, timeoutPromise]);
     }
-    catch (error) {
+    catch (_) {
         if (!res.headersSent) {
             res.status(408).send("Request Timeout");
         }

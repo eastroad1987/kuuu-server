@@ -95,7 +95,7 @@ export default async (req, res) => {
   // 타임아웃과 함께 경쟁
   try {
     await Promise.race([handlerPromise, timeoutPromise]);
-  } catch (/* eslint-disable-next-line @typescript-eslint/no-unused-vars */error) {
+  } catch (_) {
     if (!res.headersSent) {
       res.status(408).send("Request Timeout");
     }
