@@ -33,34 +33,34 @@ export class UserController {
     return this.userService.login(loginDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post("refresh")
+  @UseGuards(JwtAuthGuard)
   async refreshToken(@UserDeco() user: User): Promise<{ accessToken: string }> {
     return this.userService.refreshToken(user.id);
   }
 
+  @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
-  @Get()
   async findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get("profile")
+  @UseGuards(JwtAuthGuard)
   async getProfile(@UserDeco() user: User): Promise<User> {
     return this.userService.findOne(user.id);
   }
 
+  @Get(":id")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
-  @Get(":id")
   async findOne(@Param("id") id: string): Promise<User> {
     return this.userService.findOne(+id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Patch(":id")
+  @UseGuards(JwtAuthGuard)
   async update(
     @Param("id") id: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -72,15 +72,15 @@ export class UserController {
     return this.userService.update(+id, updateUserDto);
   }
 
+  @Delete(":id")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
-  @Delete(":id")
   async remove(@Param("id") id: string): Promise<void> {
     return this.userService.remove(+id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post("logout")
+  @UseGuards(JwtAuthGuard)
   async logout(@UserDeco() user: User): Promise<void> {
     return this.userService.logout(user.id);
   }
