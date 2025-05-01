@@ -9,12 +9,9 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "prebuild": "rimraf dist && echo 'dist 디렉토리 삭제 완료'",
-    "build": "nest build && echo '빌드 중 dist 디렉토리 내용:' && ls -la dist && echo 'src 디렉토리 내용:' && ls -la src",
+    "build": "nest build",
     "postbuild1": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist",
-    "vercel-build": "npm run prebuild && npm run build && npm run postbuild1 && mkdir -p api && npm run cpfiles && npm run postbuild2",
-    "cpfiles": "if [ -d 'dist/src' ]; then cp -r dist/src/* api/ && echo '파일 복사 완료'; else echo 'dist/src 디렉토리가 존재하지 않습니다.' && ls -la dist && exit 1; fi",
-    "postbuild2": "echo '빌드 후 api 디렉토리 내용:' && ls -la api",
+    "vercel-build": "npm run build && npm run postbuild1 && mkdir -p api && cp -r dist/src/* api/ && echo '파일 복사 완료'",
     "start": "node dist/src/main.js",
     "start:prod": "NODE_ENV=production node dist/src/main.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -70,7 +67,6 @@
     "pg": "^8.15.6",
     "query-string": "^9.1.1",
     "reflect-metadata": "^0.2.2",
-    "rimraf": "^5.0.5",
     "rxjs": "^7.8.1",
     "serverless-http": "^3.2.0",
     "swc": "^1.0.11",
