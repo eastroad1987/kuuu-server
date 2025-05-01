@@ -58,9 +58,15 @@ switch (process.env.NODE_ENV) {
           ssl: true,
           dropSchema: false,
           synchronize: false,
-          logging: true,
-          connectTimeout: 1000,
-          extra: { connectionLimit: 30 },
+          logging: process.env.NODE_ENV !== "production",
+          connectTimeout: 5000,
+          extra: {
+            connectionLimit: 5,
+            idleTimeoutMillis: 10000,
+            connectionTimeoutMillis: 5000,
+          },
+          poolSize: 5,
+          autoLoadEntities: true,
         };
       },
       inject: [ConfigService],
@@ -79,6 +85,8 @@ switch (process.env.NODE_ENV) {
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes({ path: "*", method: RequestMethod.ALL });
+    if (process.env.NODE_ENV !== "production") {
+      consumer.apply(LoggerMiddleware).forRoutes({ path: "*", method: RequestMethod.ALL });
+    }
   }
 }

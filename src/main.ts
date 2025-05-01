@@ -12,10 +12,10 @@ const server = express();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server), {
-    logger: ['error', 'warn'],
+    logger: ["error", "warn"],
     abortOnError: false,
   });
-  
+
   app.useGlobalPipes(
     new TrimStringsPipe(),
     new ValidationPipe({
@@ -41,7 +41,7 @@ async function bootstrap() {
   app.setGlobalPrefix("api");
 
   // 서버리스 환경에서는 listen 대신 init만 호출
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     await app.listen(process.env.PORT ?? 3000);
   } else {
     await app.init();
@@ -49,7 +49,7 @@ async function bootstrap() {
 }
 
 // 일반 환경에서 실행
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   bootstrap();
 }
 
