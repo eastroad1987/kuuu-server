@@ -40,17 +40,15 @@ async function bootstrap() {
   });
   app.setGlobalPrefix("api");
 
-  // 서버리스 환경에서는 listen 대신 init만 호출
-  if (process.env.NODE_ENV !== "production") {
-    await app.listen(process.env.PORT ?? 3000);
-  } else {
-    await app.init();
-  }
+  await app.init();
+  return server;
 }
 
-// 일반 환경에서 실행
+// 서버리스 환경에서는 listen 대신 init만 호출
 if (process.env.NODE_ENV !== "production") {
-  bootstrap();
+  bootstrap().then(() => {
+    console.log('서버가 시작되었습니다.');
+  });
 }
 
-export default server;
+export default bootstrap();
