@@ -1,13 +1,26 @@
-import * as AWS from "aws-sdk";
 import { ConfigService } from "@nestjs/config";
 export declare class S3Service {
     private configService;
-    private s3;
+    private s3Client;
     constructor(configService: ConfigService);
     generatePresignedUrl(key: string): Promise<string>;
-    listMultipartUploads(): Promise<AWS.S3.ListMultipartUploadsOutput>;
-    createMultipartUpload(key: string): Promise<AWS.S3.CreateMultipartUploadOutput>;
-    uploadChunkPart(uploadId: string, key: string, partNumber: number, chunk: Buffer): Promise<AWS.S3.UploadPartOutput>;
-    completeMultipartUpload(key: string, uploadId: string, parts: AWS.S3.CompletedPart[]): Promise<AWS.S3.CompleteMultipartUploadOutput>;
-    abortMultipartUpload(key: string, uploadId: string): Promise<AWS.S3.AbortMultipartUploadOutput>;
+    listMultipartUploads(): Promise<{
+        Uploads: import("@aws-sdk/client-s3").MultipartUpload[];
+    }>;
+    createMultipartUpload(key: string): Promise<{
+        UploadId: string;
+    }>;
+    uploadChunkPart(uploadId: string, key: string, partNumber: number, chunk: Buffer): Promise<{
+        ETag: string;
+    }>;
+    completeMultipartUpload(key: string, uploadId: string, parts: {
+        ETag: string;
+        PartNumber: number;
+    }[]): Promise<{
+        Location: string;
+    }>;
+    abortMultipartUpload(key: string, uploadId: string): Promise<{
+        message: string;
+    }>;
+    getSignedUrl(key: string): Promise<string>;
 }

@@ -29,21 +29,19 @@ let UploadFileService = class UploadFileService {
         return this.uploadFileRepository.save(updateUploadFileDto);
     }
     findAll() {
-        return `This action returns all uploadFile`;
+        return this.uploadFileRepository.find();
     }
     findOne(id) {
-        return `This action returns a #${id} uploadFile`;
+        return this.uploadFileRepository.findOne({ where: { id } });
     }
     update(id, updateUploadFileDto) {
-        console.log(updateUploadFileDto);
-        return `This action updates a #${id} uploadFile`;
+        return this.uploadFileRepository.update(id, updateUploadFileDto);
     }
     remove(id) {
-        return `This action removes a #${id} uploadFile`;
+        return this.uploadFileRepository.delete(id);
     }
     async uploadFile(files) {
         const uploadfiles = [];
-        console.log("files:", files);
         for (const element of files) {
             const file = new upload_file_entity_1.UploadFile();
             file.originalName = element.originalname;
@@ -63,9 +61,11 @@ let UploadFileService = class UploadFileService {
     }
     async createMultipartUpload(key) {
         const listMultipart = await this.s3Service.listMultipartUploads();
-        listMultipart.Uploads.map((upload) => {
-            this.s3Service.abortMultipartUpload(upload.Key, upload.UploadId);
-        });
+        if (listMultipart.Uploads) {
+            for (const upload of listMultipart.Uploads) {
+                await this.s3Service.abortMultipartUpload(upload.Key, upload.UploadId);
+            }
+        }
         const res = await this.s3Service.createMultipartUpload(key);
         return res;
     }
@@ -77,8 +77,8 @@ let UploadFileService = class UploadFileService {
         const res = await this.s3Service.completeMultipartUpload(key, uploadId, parts);
         return { location: res.Location };
     }
-    async getPreSignedUrl(body) {
-        return await this.s3Service.generatePresignedUrl(body.name);
+    async getSignedUrl(key) {
+        return await this.s3Service.getSignedUrl(key);
     }
     async abortMultiPart(body) {
         return await this.s3Service.abortMultipartUpload(body.name, body.uploadId);
