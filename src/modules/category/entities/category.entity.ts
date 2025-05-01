@@ -1,12 +1,12 @@
-import { CategoryEnums, KuuuTableEnums } from "../../../common/constants/KuuuTableEnums";
 import { BaseModel } from "../../../common/entity/base.entity";
 import { SubCategory } from "../../../modules/sub-category/entities/sub-category.entity";
 import { Column, Entity, OneToMany } from "typeorm";
+import { Post } from "../../post/entities/post.entity";
 
-@Entity(KuuuTableEnums.CATEGORY)
+@Entity("category")
 export class Category extends BaseModel {
   @Column("varchar", {
-    name: CategoryEnums.TITLE,
+    name: "title",
     length: 255,
     nullable: false,
     unique: true,
@@ -16,4 +16,7 @@ export class Category extends BaseModel {
 
   @OneToMany(() => SubCategory, (subcategory) => subcategory.category)
   subcategories: SubCategory[];
+
+  @OneToMany(() => Post, (post) => post.category)
+  posts: Post[];
 }

@@ -1,11 +1,10 @@
 import { Column, Entity } from "typeorm";
 import { BaseModel } from "../../../common/entity/base.entity";
-import { KuuuTableEnums, UploadFileEnums } from "../../../common/constants/KuuuTableEnums";
 
-@Entity(KuuuTableEnums.UPLOAD_FILE)
+@Entity("upload_file")
 export class UploadFile extends BaseModel {
   @Column("varchar", {
-    name: UploadFileEnums.NAME,
+    name: "name",
     nullable: true,
     comment: "파일명",
     length: 255,
@@ -13,7 +12,7 @@ export class UploadFile extends BaseModel {
   name: string;
 
   @Column("varchar", {
-    name: UploadFileEnums.ORIGINAL_NAME,
+    name: "original_name",
     nullable: true,
     comment: "원본파일명",
     length: 255,
@@ -21,7 +20,7 @@ export class UploadFile extends BaseModel {
   originalName: string;
 
   @Column("varchar", {
-    name: UploadFileEnums.ENCODING,
+    name: "encoding",
     nullable: true,
     comment: "인코딩",
     length: 255,
@@ -29,16 +28,16 @@ export class UploadFile extends BaseModel {
   encoding: string;
 
   @Column("varchar", {
-    name: UploadFileEnums.MIME_TYPE,
+    name: "mime_type",
     nullable: true,
     comment: "MIME 타입",
     length: 255,
   })
   mimeType: string;
 
-  @Column("decimal", { name: UploadFileEnums.SIZE, precision: 10, scale: 2 })
+  @Column("decimal", { name: "size", precision: 10, scale: 2 })
   size: number;
 
-  @Column({ name: UploadFileEnums.URL, comment: "s3 업로드된 location url" })
+  @Column({ name: "url", comment: "s3 업로드된 location url" })
   url: string;
 }

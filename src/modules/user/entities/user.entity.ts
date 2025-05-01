@@ -1,16 +1,16 @@
-import { Column, Entity } from "typeorm";
-import { KuuuTableEnums, UserEnums } from "../../../common/constants/KuuuTableEnums";
+import { Column, Entity, OneToMany } from "typeorm";
 import { BaseModel } from "../../../common/entity/base.entity";
+import { Post } from "../../post/entities/post.entity";
 
 export enum UserRole {
   USER = "user",
   ADMIN = "admin",
 }
 
-@Entity(KuuuTableEnums.USER)
+@Entity("user")
 export class User extends BaseModel {
   @Column("varchar", {
-    name: UserEnums.EMAIL,
+    name: "email",
     length: 255,
     nullable: false,
     unique: true,
@@ -19,7 +19,7 @@ export class User extends BaseModel {
   email: string;
 
   @Column("varchar", {
-    name: UserEnums.NAME,
+    name: "name",
     length: 255,
     nullable: false,
     comment: "이름",
@@ -27,7 +27,7 @@ export class User extends BaseModel {
   name: string;
 
   @Column("enum", {
-    name: UserEnums.ROLE,
+    name: "role",
     enum: UserRole,
     default: UserRole.USER,
     comment: "역할",
@@ -35,7 +35,7 @@ export class User extends BaseModel {
   role: UserRole;
 
   @Column("varchar", {
-    name: UserEnums.PASSWORD,
+    name: "password",
     length: 255,
     nullable: false,
     comment: "비밀번호",
@@ -44,21 +44,21 @@ export class User extends BaseModel {
   password: string;
 
   @Column("text", {
-    name: UserEnums.ACCESS_TOKEN,
+    name: "access_token",
     nullable: true,
     comment: "액세스 토큰",
   })
   accessToken: string;
 
   @Column("text", {
-    name: UserEnums.REFRESH_TOKEN,
+    name: "refresh_token",
     nullable: true,
     comment: "리프레시 토큰",
   })
   refreshToken: string;
 
   @Column("varchar", {
-    name: UserEnums.DEVICE_TOKEN,
+    name: "device_token",
     length: 255,
     nullable: true,
     comment: "디바이스 토큰",
@@ -66,7 +66,7 @@ export class User extends BaseModel {
   deviceToken: string;
 
   @Column("varchar", {
-    name: UserEnums.IMAGE_URL,
+    name: "image_url",
     length: 255,
     nullable: true,
     comment: "프로필 이미지 URL",
@@ -74,10 +74,13 @@ export class User extends BaseModel {
   imageUrl: string;
 
   @Column("varchar", {
-    name: UserEnums.SNS_ID,
+    name: "sns_id",
     length: 255,
     nullable: true,
     comment: "SNS ID",
   })
   snsId: string;
+
+  @OneToMany(() => Post, (post) => post.author)
+  posts: Post[];
 }
