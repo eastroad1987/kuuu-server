@@ -11,7 +11,7 @@
   "scripts": {
     "build": "nest build",
     "postbuild1": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist",
-    "vercel-build": "npm run build && npm run postbuild1 && mkdir -p api && cp -r dist/src/* api/ && echo '파일 복사 완료'",
+    "vercel-build": "npm run build && mkdir -p api && cp -r dist/src/* api/",
     "start": "node dist/src/main.js",
     "start:prod": "NODE_ENV=production node dist/src/main.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

@@ -39,4 +39,11 @@ coverage
 .git
 .github
 .vscode
-README.md 
+README.md
+
+dist
+*.env
+.env.*
+.vscode
+.idea
+*.md 
