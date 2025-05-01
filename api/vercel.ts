@@ -54,4 +54,7 @@ const getHandler = async () => {
   return handler;
 };
 
-export default getHandler();
+export default async (req: any, res: any) => {
+  const serverlessHandler = await getHandler();
+  return serverlessHandler(req, res);
+};
