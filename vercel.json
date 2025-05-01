@@ -1,45 +1,19 @@
 {
   "version": 2,
   "functions": {
-    "api/minimal.js": {
-      "memory": 128,
-      "maxDuration": 10
-    },
     "api/v1.js": {
-      "memory": 256,
-      "maxDuration": 10
-    },
-    "api/es-minimal.mjs": {
-      "memory": 128,
-      "maxDuration": 10
+      "memory": 1024,
+      "maxDuration": 30
     }
   },
-  "builds": [
-    {
-      "src": "api/minimal.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "api/v1.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "api/es-minimal.mjs",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
     {
-      "src": "/minimal/(.*)",
-      "dest": "api/minimal.js"
-    },
-    {
-      "src": "/es/(.*)",
-      "dest": "api/es-minimal.mjs"
-    },
-    {
-      "src": "/api/(.*)|/(.*)",
+      "src": "/api/(.*)",
       "dest": "api/v1.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ],
   "regions": ["icn1"],
