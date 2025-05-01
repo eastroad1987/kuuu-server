@@ -13,7 +13,7 @@
     "build": "nest build && echo '빌드 중 dist 디렉토리 내용:' && ls -la dist && echo 'src 디렉토리 내용:' && ls -la src",
     "postbuild1": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist",
     "vercel-build": "npm run prebuild && npm run build && npm run postbuild1 && mkdir -p api && npm run cpfiles && sleep 5 && npm run postbuild2",
-    "cpfiles": "cp dist/src/main.js api/v1.js && echo '파일 복사 완료'",
+    "cpfiles": "cp dist/* api/* && echo '파일 복사 완료'",
     "postbuild2": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist",
     "start": "node dist/src/main.js",
     "start:prod": "NODE_ENV=production node dist/main.js",
