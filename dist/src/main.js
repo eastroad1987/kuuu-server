@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const platform_express_1 = require("@nestjs/platform-express");
-const cookieParser = __importStar(require("cookie-parser"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const express_1 = __importStar(require("express"));
 const app_module_1 = require("./app.module");
 const trim_strings_pipe_1 = require("./common/transformer/trim-strings.pipe");
@@ -60,7 +60,7 @@ async function bootstrap() {
     }));
     app.use((0, express_1.json)({ limit: "50mb" }));
     app.use((0, express_1.urlencoded)({ extended: true, limit: "50mb" }));
-    app.use(cookieParser());
+    app.use((0, cookie_parser_1.default)());
     app.use((0, helmet_1.default)());
     app.enableCors({
         origin: true,
