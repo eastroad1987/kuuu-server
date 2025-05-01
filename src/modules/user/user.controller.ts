@@ -24,44 +24,48 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post("register")
-  create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.create(createUserDto);
   }
 
   @Post("login")
-  login(@Body() loginDto: LoginDto) {
+  async login(@Body() loginDto: LoginDto): Promise<{ accessToken: string; refreshToken: string }> {
     return this.userService.login(loginDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post("refresh")
-  refreshToken(@UserDeco() user: User) {
+  async refreshToken(@UserDeco() user: User): Promise<{ accessToken: string }> {
     return this.userService.refreshToken(user.id);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
   @Get()
-  findAll() {
+  async findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
   @UseGuards(JwtAuthGuard)
   @Get("profile")
-  getProfile(@UserDeco() user: User) {
+  async getProfile(@UserDeco() user: User): Promise<User> {
     return this.userService.findOne(user.id);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
   @Get(":id")
-  findOne(@Param("id") id: string) {
+  async findOne(@Param("id") id: string): Promise<User> {
     return this.userService.findOne(+id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto, @UserDeco() user: User) {
+  async update(
+    @Param("id") id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @UserDeco() user: User
+  ): Promise<User> {
     if (user.id !== +id && user.role !== UserRole.ADMIN) {
       throw new UnauthorizedException("You can only update your own profile");
     }
@@ -71,13 +75,13 @@ export class UserController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
   @Delete(":id")
-  remove(@Param("id") id: string) {
+  async remove(@Param("id") id: string): Promise<void> {
     return this.userService.remove(+id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post("logout")
-  logout(@UserDeco() user: User) {
+  async logout(@UserDeco() user: User): Promise<void> {
     return this.userService.logout(user.id);
   }
 }

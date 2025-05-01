@@ -144,7 +144,7 @@ export class UserService {
       throw new NotFoundException("User not found");
     }
 
-    return this.userRepository.delete(id);
+    this.userRepository.delete(id);
   }
 
   async logout(id: number) {
@@ -152,6 +152,5 @@ export class UserService {
       accessToken: null,
       refreshToken: null,
     });
-    return { message: "Logged out successfully" };
   }
 }

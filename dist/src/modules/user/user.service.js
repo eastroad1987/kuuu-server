@@ -149,14 +149,13 @@ let UserService = class UserService {
         if (!user) {
             throw new common_1.NotFoundException("User not found");
         }
-        return this.userRepository.delete(id);
+        this.userRepository.delete(id);
     }
     async logout(id) {
         await this.userRepository.update(id, {
             accessToken: null,
             refreshToken: null,
         });
-        return { message: "Logged out successfully" };
     }
 };
 exports.UserService = UserService;

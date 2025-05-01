@@ -10,7 +10,7 @@
   },
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "nest build && tsc && node src",
+    "build": "nest build && tsc && node dist/src/main.js",
     "ls": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist/src",
     "vercel-build": "npm install && npm run build && cp -r dist/src/* api/",
     "start": "node dist/src/main.js",

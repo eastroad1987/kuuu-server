@@ -27,34 +27,34 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    create(createUserDto) {
+    async create(createUserDto) {
         return this.userService.create(createUserDto);
     }
-    login(loginDto) {
+    async login(loginDto) {
         return this.userService.login(loginDto);
     }
-    refreshToken(user) {
+    async refreshToken(user) {
         return this.userService.refreshToken(user.id);
     }
-    findAll() {
+    async findAll() {
         return this.userService.findAll();
     }
-    getProfile(user) {
+    async getProfile(user) {
         return this.userService.findOne(user.id);
     }
-    findOne(id) {
+    async findOne(id) {
         return this.userService.findOne(+id);
     }
-    update(id, updateUserDto, user) {
+    async update(id, updateUserDto, user) {
         if (user.id !== +id && user.role !== user_entity_1.UserRole.ADMIN) {
             throw new common_1.UnauthorizedException("You can only update your own profile");
         }
         return this.userService.update(+id, updateUserDto);
     }
-    remove(id) {
+    async remove(id) {
         return this.userService.remove(+id);
     }
-    logout(user) {
+    async logout(user) {
         return this.userService.logout(user.id);
     }
 };
@@ -64,14 +64,14 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
 __decorate([
     (0, common_1.Post)("login"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [login_dto_1.LoginDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -79,7 +79,7 @@ __decorate([
     __param(0, (0, user_decorator_1.UserDeco)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_entity_1.User]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "refreshToken", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guards_1.RolesGuard),
@@ -87,7 +87,7 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "findAll", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -95,7 +95,7 @@ __decorate([
     __param(0, (0, user_decorator_1.UserDeco)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_entity_1.User]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "getProfile", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guards_1.RolesGuard),
@@ -104,7 +104,7 @@ __decorate([
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "findOne", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -113,8 +113,9 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __param(2, (0, user_decorator_1.UserDeco)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserDto, user_entity_1.User]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserDto,
+        user_entity_1.User]),
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guards_1.RolesGuard),
@@ -123,7 +124,7 @@ __decorate([
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "remove", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -131,7 +132,7 @@ __decorate([
     __param(0, (0, user_decorator_1.UserDeco)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_entity_1.User]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "logout", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)("users"),

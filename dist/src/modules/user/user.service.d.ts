@@ -27,8 +27,6 @@ export declare class UserService {
     findAll(): Promise<User[]>;
     findOne(id: number): Promise<User>;
     update(id: number, updateUserDto: UpdateUserDto): Promise<User>;
-    remove(id: number): Promise<import("typeorm").DeleteResult>;
-    logout(id: number): Promise<{
-        message: string;
-    }>;
+    remove(id: number): Promise<void>;
+    logout(id: number): Promise<void>;
 }
