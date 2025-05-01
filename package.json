@@ -9,9 +9,10 @@
     "node": ">=16.0.0"
   },
   "scripts": {
+    "prebuild": "rimraf dist && echo 'dist 디렉토리 삭제 완료'",
     "build": "nest build",
     "postbuild1": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist",
-    "vercel-build": "npm run build && mkdir -p api && cp -r dist/src/* api/",
+    "vercel-build": "npm run prebuild && npm run build && cp -r dist/src/* api/",
     "start": "node dist/src/main.js",
     "start:prod": "NODE_ENV=production node dist/src/main.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -67,7 +68,6 @@
     "pg": "^8.15.6",
     "query-string": "^9.1.1",
     "reflect-metadata": "^0.2.2",
-    "rimraf": "^6.0.1",
     "rxjs": "^7.8.1",
     "serverless-http": "^3.2.0",
     "swc": "^1.0.11",
