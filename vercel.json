@@ -1,25 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm install --legacy-peer-deps path-to-regexp express serverless-http helmet cors && npm run build",
   "builds": [
     {
       "src": "api/slim-vercel.ts",
-      "use": "@vercel/node",
-      "config": {
-        "maxDuration": 60,
-        "memory": 1024,
-        "includeFiles": [
-          "dist/**/*"
-        ],
-        "excludeFiles": [
-          "node_modules/**/*",
-          "!node_modules/path-to-regexp/**/*",
-          "!node_modules/express/**/*",
-          "!node_modules/serverless-http/**/*",
-          "!node_modules/helmet/**/*",
-          "!node_modules/cors/**/*"
-        ]
-      }
+      "use": "@vercel/node"
     },
     {
       "src": "api/health.ts",
@@ -37,7 +21,6 @@
     }
   ],
   "env": {
-    "NODE_ENV": "production",
-    "NPM_FLAGS": "--legacy-peer-deps"
+    "NODE_ENV": "production"
   }
 }
