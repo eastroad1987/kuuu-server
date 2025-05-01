@@ -79,5 +79,6 @@ async function bootstrap() {
 if (process.env.NODE_ENV !== "production") {
     bootstrap();
 }
-exports.default = server;
+const serverless = require('serverless-http');
+module.exports = serverless(server);
 //# sourceMappingURL=main.js.map

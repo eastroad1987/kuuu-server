@@ -34,7 +34,6 @@ docker-compose.yml
 README.md
 
 # 서버리스 함수에 불필요한 파일 제외
-src
 test
 coverage
 .git
