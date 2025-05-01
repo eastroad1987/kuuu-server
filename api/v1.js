@@ -80,5 +80,7 @@ if (process.env.NODE_ENV !== "production") {
     bootstrap();
 }
 const serverless = require('serverless-http');
+const server = require('../dist/src/main');
+
 module.exports = serverless(server);
 //# sourceMappingURL=main.js.map
