@@ -26,8 +26,12 @@ import { SubCategoryModule } from "./modules/sub-category/sub-category.module";
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: process.env.NODE_ENV === "prod" ? ".env.prod" : 
-                  process.env.NODE_ENV === "dev" ? ".env.dev" : ".env",
+      envFilePath:
+        process.env.NODE_ENV === "prod"
+          ? ".env.prod"
+          : process.env.NODE_ENV === "dev"
+            ? ".env.dev"
+            : ".env",
       isGlobal: true,
       cache: true,
     }),
