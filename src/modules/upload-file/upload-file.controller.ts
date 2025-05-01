@@ -14,7 +14,6 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { FileInterceptor } from "@nestjs/platform-express/multer/interceptors/file.interceptor";
 import { FilesInterceptor } from "@nestjs/platform-express/multer/interceptors/files.interceptor";
-import * as AWS from "aws-sdk";
 import "dotenv/config";
 import multerS3 from "multer-s3";
 import { S3Service } from "../../providers/aws/aws-s3.service";
@@ -22,28 +21,24 @@ import { UpdateUploadFileDto } from "./dto/update-upload-file.dto";
 import { UploadFileService } from "./upload-file.service";
 import { S3Client } from "@aws-sdk/client-s3";
 
-const s3Client = new S3Client({
-  region: "ap-northeast-2",
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  },
-});
-
 @Controller("upload-file")
 export class UploadFileController {
-  private bucket: string;
+  private readonly s3Client: S3Client;
+  private readonly bucket: string;
+
   constructor(
     private readonly uploadFileService: UploadFileService,
     private readonly s3Service: S3Service,
     private configService: ConfigService
   ) {
-    AWS.config.update({
-      accessKeyId: configService.get("AWS_ACCESS_KEY_ID"),
-      secretAccessKey: configService.get("AWS_SECRET_ACCESS_KEY"),
+    this.s3Client = new S3Client({
       region: "ap-northeast-2",
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
     });
-    this.bucket = configService.get("AWS_S3_BUCKET_NAME");
+    this.bucket = this.configService.get("AWS_S3_BUCKET_NAME");
   }
 
   @Get("presigned-url")
@@ -56,8 +51,14 @@ export class UploadFileController {
   @UseInterceptors(
     FilesInterceptor("file", 20, {
       storage: multerS3({
-        s3: s3Client,
-        bucket: "s3-kuuu",
+        s3: new S3Client({
+          region: "ap-northeast-2",
+          credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+          },
+        }),
+        bucket: process.env.AWS_S3_BUCKET_NAME,
         key: function (request, file, cb) {
           cb(null, `${Date.now().toString()}-${file.originalname}`);
         },
@@ -71,7 +72,7 @@ export class UploadFileController {
 
   @Post("get-presigned-url")
   async postPresignedUrl(@Body() body) {
-    return await this.uploadFileService.getPreSignedUrl(body);
+    return await this.uploadFileService.getSignedUrl(body);
   }
 
   @Post("create-multipart")

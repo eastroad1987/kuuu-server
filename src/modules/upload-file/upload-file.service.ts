@@ -16,36 +16,27 @@ export class UploadFileService {
   ) {}
 
   create(updateUploadFileDto: UpdateUploadFileDto) {
-    // const uploadFile = new UploadFile();
-    // uploadFile.originalName = file.originalname;
-    // uploadFile.encoding = file.encoding;
-    // uploadFile.mimeType = file.mimetype;
-    // uploadFile.size = file.size;
-    // uploadFile.url = body.url;
-    // uploadFile.name = body.url.split("/").splice(-1)[0];
     return this.uploadFileRepository.save(updateUploadFileDto);
   }
 
   findAll() {
-    return `This action returns all uploadFile`;
+    return this.uploadFileRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} uploadFile`;
+    return this.uploadFileRepository.findOne({ where: { id } });
   }
 
   update(id: number, updateUploadFileDto: UpdateUploadFileDto) {
-    console.log(updateUploadFileDto);
-    return `This action updates a #${id} uploadFile`;
+    return this.uploadFileRepository.update(id, updateUploadFileDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} uploadFile`;
+    return this.uploadFileRepository.delete(id);
   }
 
   async uploadFile(files: Express.MulterS3.File[]) {
     const uploadfiles = [];
-    console.log("files:", files);
     for (const element of files) {
       const file = new UploadFile();
       file.originalName = element.originalname;
@@ -67,10 +58,11 @@ export class UploadFileService {
 
   async createMultipartUpload(key: string) {
     const listMultipart = await this.s3Service.listMultipartUploads();
-    // console.log(listMultipart)
-    listMultipart.Uploads.map((upload) => {
-      this.s3Service.abortMultipartUpload(upload.Key, upload.UploadId);
-    });
+    if (listMultipart.Uploads) {
+      for (const upload of listMultipart.Uploads) {
+        await this.s3Service.abortMultipartUpload(upload.Key, upload.UploadId);
+      }
+    }
     const res = await this.s3Service.createMultipartUpload(key);
     return res;
   }
@@ -93,7 +85,7 @@ export class UploadFileService {
     return await this.s3Service.getSignedUrl(key);
   }
 
-  async abortMultiPart(body) {
+  async abortMultiPart(body: { name: string; uploadId: string }) {
     return await this.s3Service.abortMultipartUpload(body.name, body.uploadId);
   }
 }
