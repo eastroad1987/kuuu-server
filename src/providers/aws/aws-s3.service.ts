@@ -1,18 +1,20 @@
 import { Injectable } from "@nestjs/common";
-import * as AWS from "aws-sdk";
 import { ConfigService } from "@nestjs/config";
+import { S3Client, CreateMultipartUploadCommand, UploadPartCommand, CompleteMultipartUploadCommand, AbortMultipartUploadCommand, ListMultipartUploadsCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 @Injectable()
 export class S3Service {
-  private s3: AWS.S3;
+  private s3Client: S3Client;
 
   constructor(private configService: ConfigService) {
-    AWS.config.update({
-      accessKeyId: this.configService.get("AWS_ACCESS_KEY_ID"),
-      secretAccessKey: this.configService.get("AWS_SECRET_ACCESS_KEY"),
+    this.s3Client = new S3Client({
       region: this.configService.get("AWS_REGION"),
+      credentials: {
+        accessKeyId: this.configService.get("AWS_ACCESS_KEY_ID"),
+        secretAccessKey: this.configService.get("AWS_SECRET_ACCESS_KEY"),
+      },
     });
-    this.s3 = new AWS.S3();
   }
 
   async generatePresignedUrl(key: string): Promise<string> {
@@ -24,7 +26,7 @@ export class S3Service {
       Expires: expires, // Time in seconds
     };
 
-    return this.s3.getSignedUrlPromise("putObject", params);
+    return this.s3Client.getSignedUrl(new GetObjectCommand(params), { expiresIn: expires });
   }
 
   async listMultipartUploads(): Promise<AWS.S3.ListMultipartUploadsOutput> {
@@ -32,7 +34,7 @@ export class S3Service {
     const params = {
       Bucket: bucketName,
     };
-    return this.s3.listMultipartUploads(params).promise();
+    return this.s3Client.listMultipartUploads(params).promise();
   }
 
   async createMultipartUpload(key: string): Promise<AWS.S3.CreateMultipartUploadOutput> {
@@ -41,7 +43,7 @@ export class S3Service {
       Bucket: bucketName,
       Key: key,
     };
-    return this.s3.createMultipartUpload(params).promise();
+    return this.s3Client.createMultipartUpload(params).promise();
   }
 
   async uploadChunkPart(
@@ -59,7 +61,7 @@ export class S3Service {
       Body: chunk.buffer,
     };
 
-    return this.s3.uploadPart(params).promise();
+    return this.s3Client.uploadPart(params).promise();
   }
 
   async completeMultipartUpload(
@@ -76,7 +78,7 @@ export class S3Service {
         Parts: parts,
       },
     };
-    return this.s3.completeMultipartUpload(params).promise();
+    return this.s3Client.completeMultipartUpload(params).promise();
   }
 
   async abortMultipartUpload(
@@ -89,6 +91,15 @@ export class S3Service {
       Key: key,
       UploadId: uploadId,
     };
-    return this.s3.abortMultipartUpload(params).promise();
+    return this.s3Client.abortMultipartUpload(params).promise();
+  }
+
+  async getSignedUrl(key: string): Promise<string> {
+    const command = new GetObjectCommand({
+      Bucket: this.configService.get("AWS_BUCKET_NAME"),
+      Key: key,
+    });
+
+    return getSignedUrl(this.s3Client, command, { expiresIn: 3600 });
   }
 }

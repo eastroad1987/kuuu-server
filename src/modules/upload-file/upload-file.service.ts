@@ -5,28 +5,15 @@ import { S3Service } from "../../providers/aws/aws-s3.service";
 import { Repository } from "typeorm";
 import { UpdateUploadFileDto } from "./dto/update-upload-file.dto";
 import { UploadFile } from "./entities/upload-file.entity";
-import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 @Injectable()
 export class UploadFileService {
-  private s3Client: S3Client;
-
   constructor(
     private configService: ConfigService,
     private s3Service: S3Service,
-
     @InjectRepository(UploadFile)
     private uploadFileRepository: Repository<UploadFile>
-  ) {
-    this.s3Client = new S3Client({
-      region: this.configService.get("AWS_REGION"),
-      credentials: {
-        accessKeyId: this.configService.get("AWS_ACCESS_KEY_ID"),
-        secretAccessKey: this.configService.get("AWS_SECRET_ACCESS_KEY"),
-      },
-    });
-  }
+  ) {}
 
   create(updateUploadFileDto: UpdateUploadFileDto) {
     // const uploadFile = new UploadFile();
@@ -103,12 +90,7 @@ export class UploadFileService {
   }
 
   async getSignedUrl(key: string): Promise<string> {
-    const command = new GetObjectCommand({
-      Bucket: this.configService.get("AWS_BUCKET_NAME"),
-      Key: key,
-    });
-
-    return getSignedUrl(this.s3Client, command, { expiresIn: 3600 });
+    return await this.s3Service.getSignedUrl(key);
   }
 
   async abortMultiPart(body) {
