@@ -47,7 +47,7 @@ async function bootstrap() {
 // 서버리스 환경에서는 listen 대신 init만 호출
 if (process.env.NODE_ENV !== "production") {
   bootstrap().then(() => {
-    console.log('서버가 시작되었습니다.');
+    console.log("서버가 시작되었습니다.");
   });
 }
 
