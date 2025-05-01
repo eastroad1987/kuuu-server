@@ -6,4 +6,3 @@ var YnEnums;
     YnEnums["Y"] = "Y";
     YnEnums["N"] = "N";
 })(YnEnums || (exports.YnEnums = YnEnums = {}));
-//# sourceMappingURL=YnEnums.js.map

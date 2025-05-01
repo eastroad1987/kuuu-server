@@ -31,4 +31,3 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], GetSubCategoryDto.prototype, "limit", void 0);
-//# sourceMappingURL=get-sub-category.dto.js.map

@@ -105,4 +105,3 @@ __decorate([
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)(KuuuTableEnums_1.KuuuTableEnums.USER)
 ], User);
-//# sourceMappingURL=user.entity.js.map

@@ -89,4 +89,3 @@ exports.CommentController = CommentController = __decorate([
     (0, common_1.Controller)("comments"),
     __metadata("design:paramtypes", [comment_service_1.CommentService])
 ], CommentController);
-//# sourceMappingURL=comment.controller.js.map

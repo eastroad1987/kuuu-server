@@ -22,23 +22,11 @@ const category_module_1 = require("./modules/category/category.module");
 const comment_module_1 = require("./modules/comment/comment.module");
 const post_module_1 = require("./modules/post/post.module");
 const sub_category_module_1 = require("./modules/sub-category/sub-category.module");
-let envFilePath;
-switch (process.env.NODE_ENV) {
-    case "local":
-        envFilePath = ".env";
-        break;
-    case "dev":
-        envFilePath = ".env.dev";
-        break;
-    case "prod":
-        envFilePath = ".env.prod";
-        break;
-    default:
-        envFilePath = ".env";
-}
 let AppModule = class AppModule {
     configure(consumer) {
-        consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes({ path: "*", method: common_1.RequestMethod.ALL });
+        if (process.env.NODE_ENV !== "production") {
+            consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes({ path: "*", method: common_1.RequestMethod.ALL });
+        }
     }
 };
 exports.AppModule = AppModule;
@@ -46,8 +34,10 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             config_1.ConfigModule.forRoot({
-                envFilePath: envFilePath,
+                envFilePath: process.env.NODE_ENV === "prod" ? ".env.prod" :
+                    process.env.NODE_ENV === "dev" ? ".env.dev" : ".env",
                 isGlobal: true,
+                cache: true,
             }),
             typeorm_1.TypeOrmModule.forRootAsync({
                 imports: [config_1.ConfigModule],
@@ -64,9 +54,19 @@ exports.AppModule = AppModule = __decorate([
                         ssl: true,
                         dropSchema: false,
                         synchronize: false,
-                        logging: true,
-                        connectTimeout: 1000,
-                        extra: { connectionLimit: 30 },
+                        logging: false,
+                        connectTimeout: 5000,
+                        extra: {
+                            connectionLimit: 1,
+                            idleTimeoutMillis: 5000,
+                            connectionTimeoutMillis: 2000,
+                            keepAlive: true,
+                            keepAliveInitialDelay: 1000,
+                        },
+                        poolSize: 1,
+                        autoLoadEntities: true,
+                        retryAttempts: 1,
+                        retryDelay: 1000,
                     };
                 },
                 inject: [config_1.ConfigService],
@@ -84,4 +84,3 @@ exports.AppModule = AppModule = __decorate([
         providers: [app_service_1.AppService, { provide: core_1.APP_INTERCEPTOR, useClass: common_1.ClassSerializerInterceptor }],
     })
 ], AppModule);
-//# sourceMappingURL=app.module.js.map

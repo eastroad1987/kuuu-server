@@ -23,4 +23,3 @@ exports.UploadFileModule = UploadFileModule = __decorate([
         providers: [upload_file_service_1.UploadFileService, aws_s3_service_1.S3Service],
     })
 ], UploadFileModule);
-//# sourceMappingURL=upload-file.module.js.map

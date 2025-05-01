@@ -42,4 +42,3 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], GetCommentDto.prototype, "sort", void 0);
-//# sourceMappingURL=get-comment.dto.js.map

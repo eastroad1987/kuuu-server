@@ -32,4 +32,3 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], GetCategoryDto.prototype, "sort", void 0);
-//# sourceMappingURL=get-category.dto.js.map

@@ -128,4 +128,3 @@ __decorate([
 exports.Post = Post = __decorate([
     (0, typeorm_1.Entity)(KuuuTableEnums_1.KuuuTableEnums.POST)
 ], Post);
-//# sourceMappingURL=post.entity.js.map

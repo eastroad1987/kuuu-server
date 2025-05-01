@@ -36,7 +36,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handler = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const platform_express_1 = require("@nestjs/platform-express");
@@ -48,7 +47,10 @@ const helmet_1 = __importDefault(require("helmet"));
 const server = (0, express_1.default)();
 async function bootstrap() {
     var _a;
-    const app = await core_1.NestFactory.create(app_module_1.AppModule, new platform_express_1.ExpressAdapter(server));
+    const app = await core_1.NestFactory.create(app_module_1.AppModule, new platform_express_1.ExpressAdapter(server), {
+        logger: ["error", "warn"],
+        abortOnError: false,
+    });
     app.useGlobalPipes(new trim_strings_pipe_1.TrimStringsPipe(), new common_1.ValidationPipe({
         whitelist: true,
         forbidNonWhitelisted: true,
@@ -66,10 +68,16 @@ async function bootstrap() {
         methods: "GET,HEAD,PUT,POST,DELETE,OPTIONS,PATCH",
         credentials: true,
     });
-    await app.listen((_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000);
     app.setGlobalPrefix("api");
-    await app.init();
+    if (process.env.NODE_ENV !== "production") {
+        await app.listen((_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000);
+    }
+    else {
+        await app.init();
+    }
 }
-bootstrap();
-exports.handler = server;
+if (process.env.NODE_ENV !== "production") {
+    bootstrap();
+}
+exports.default = server;
 //# sourceMappingURL=main.js.map

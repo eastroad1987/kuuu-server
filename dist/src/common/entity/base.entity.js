@@ -30,4 +30,3 @@ __decorate([
     (0, typeorm_1.Column)({ name: "deleted_at", type: "timestamp", nullable: true }),
     __metadata("design:type", Date)
 ], BaseModel.prototype, "deletedAt", void 0);
-//# sourceMappingURL=base.entity.js.map

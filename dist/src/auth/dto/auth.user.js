@@ -5,4 +5,3 @@ const create_user_dto_1 = require("../../modules/user/dto/create-user.dto");
 class AuthUserDto extends create_user_dto_1.CreateUserDto {
 }
 exports.AuthUserDto = AuthUserDto;
-//# sourceMappingURL=auth.user.js.map

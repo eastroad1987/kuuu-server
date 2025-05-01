@@ -4,4 +4,3 @@ exports.BaseController = void 0;
 class BaseController {
 }
 exports.BaseController = BaseController;
-//# sourceMappingURL=base.controller.js.map

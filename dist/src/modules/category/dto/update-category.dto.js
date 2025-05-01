@@ -5,4 +5,3 @@ const create_category_dto_1 = require("./create-category.dto");
 class UpdateCategoryDto extends create_category_dto_1.CreateCategoryDto {
 }
 exports.UpdateCategoryDto = UpdateCategoryDto;
-//# sourceMappingURL=update-category.dto.js.map

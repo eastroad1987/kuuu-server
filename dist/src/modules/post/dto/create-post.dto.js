@@ -59,4 +59,3 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreatePostDto.prototype, "subcategoryId", void 0);
-//# sourceMappingURL=create-post.dto.js.map

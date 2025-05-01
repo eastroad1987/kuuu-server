@@ -25,4 +25,3 @@ exports.PostModule = PostModule = __decorate([
         providers: [post_service_1.PostService],
     })
 ], PostModule);
-//# sourceMappingURL=post.module.js.map

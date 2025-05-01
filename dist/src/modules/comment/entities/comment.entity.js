@@ -86,4 +86,3 @@ __decorate([
 exports.Comment = Comment = __decorate([
     (0, typeorm_1.Entity)(KuuuTableEnums_1.KuuuTableEnums.COMMENT)
 ], Comment);
-//# sourceMappingURL=comment.entity.js.map

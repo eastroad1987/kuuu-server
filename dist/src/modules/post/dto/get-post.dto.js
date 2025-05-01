@@ -47,4 +47,3 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], GetPostDto.prototype, "sort", void 0);
-//# sourceMappingURL=get-post.dto.js.map

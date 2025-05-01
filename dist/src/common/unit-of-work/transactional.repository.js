@@ -36,4 +36,3 @@ exports.TransactionalRepository = TransactionalRepository = __decorate([
     __metadata("design:paramtypes", [unit_of_work_provider_1.UnitOfWork,
         typeorm_1.DataSource])
 ], TransactionalRepository);
-//# sourceMappingURL=transactional.repository.js.map

@@ -38,4 +38,3 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateUploadFileDto.prototype, "url", void 0);
-//# sourceMappingURL=create-upload-file.dto.js.map

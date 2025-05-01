@@ -228,4 +228,3 @@ exports.UploadFileController = UploadFileController = __decorate([
         aws_s3_service_1.S3Service,
         config_1.ConfigService])
 ], UploadFileController);
-//# sourceMappingURL=upload-file.controller.js.map

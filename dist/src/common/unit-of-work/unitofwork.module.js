@@ -20,4 +20,3 @@ exports.UnitOfWorkModule = UnitOfWorkModule = __decorate([
         exports: [unit_of_work_provider_1.UnitOfWork, transactional_repository_1.TransactionalRepository],
     })
 ], UnitOfWorkModule);
-//# sourceMappingURL=unitofwork.module.js.map

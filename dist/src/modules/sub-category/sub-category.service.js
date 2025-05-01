@@ -104,4 +104,3 @@ exports.SubCategoryService = SubCategoryService = __decorate([
         typeorm_2.Repository,
         typeorm_2.Repository])
 ], SubCategoryService);
-//# sourceMappingURL=sub-category.service.js.map

@@ -39,4 +39,3 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], AuthDto.prototype, "refreshToken", void 0);
-//# sourceMappingURL=auth.dto.js.map

@@ -23,4 +23,3 @@ exports.CategoryModule = CategoryModule = __decorate([
         exports: [category_service_1.CategoryService],
     })
 ], CategoryModule);
-//# sourceMappingURL=category.module.js.map

@@ -77,4 +77,3 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateSubCategoryDto.prototype, "viewCntYn", void 0);
-//# sourceMappingURL=create-sub-category.dto.js.map

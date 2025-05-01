@@ -94,4 +94,3 @@ exports.SubCategoryController = SubCategoryController = __decorate([
     (0, common_1.Controller)("subcategory"),
     __metadata("design:paramtypes", [sub_category_service_1.SubCategoryService])
 ], SubCategoryController);
-//# sourceMappingURL=sub-category.controller.js.map

@@ -63,4 +63,3 @@ __decorate([
 exports.UploadFile = UploadFile = __decorate([
     (0, typeorm_1.Entity)(KuuuTableEnums_1.KuuuTableEnums.UPLOAD_FILE)
 ], UploadFile);
-//# sourceMappingURL=upload-file.entity.js.map

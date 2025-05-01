@@ -97,4 +97,3 @@ var CommentEnums;
     CommentEnums["FILE_PATH"] = "file_path";
     CommentEnums["PARENT_COMMENT_ID"] = "parent_comment_id";
 })(CommentEnums || (exports.CommentEnums = CommentEnums = {}));
-//# sourceMappingURL=KuuuTableEnums.js.map

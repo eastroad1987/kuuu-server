@@ -19,4 +19,3 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateCategoryDto.prototype, "title", void 0);
-//# sourceMappingURL=create-category.dto.js.map

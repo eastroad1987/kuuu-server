@@ -24,4 +24,3 @@ exports.SubCategoryModule = SubCategoryModule = __decorate([
         providers: [sub_category_service_1.SubCategoryService],
     })
 ], SubCategoryModule);
-//# sourceMappingURL=sub-category.module.js.map

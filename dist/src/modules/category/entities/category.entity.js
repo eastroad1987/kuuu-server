@@ -34,4 +34,3 @@ __decorate([
 exports.Category = Category = __decorate([
     (0, typeorm_1.Entity)(KuuuTableEnums_1.KuuuTableEnums.CATEGORY)
 ], Category);
-//# sourceMappingURL=category.entity.js.map

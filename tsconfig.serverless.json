@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "declaration": false,
+    "sourceMap": false,
+    "incremental": false,
+    "removeComments": true,
+    "noEmitOnError": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true
+  },
+  "include": ["api/**/*.ts"],
+  "exclude": ["node_modules", "dist", "test", "**/*.spec.ts"]
+} 

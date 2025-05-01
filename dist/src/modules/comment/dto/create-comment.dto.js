@@ -34,4 +34,3 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateCommentDto.prototype, "parentCommentId", void 0);
-//# sourceMappingURL=create-comment.dto.js.map

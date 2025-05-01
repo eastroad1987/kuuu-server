@@ -23,25 +23,13 @@ import { CommentModule } from "./modules/comment/comment.module";
 import { PostModule } from "./modules/post/post.module";
 import { SubCategoryModule } from "./modules/sub-category/sub-category.module";
 
-let envFilePath;
-switch (process.env.NODE_ENV) {
-  case "local":
-    envFilePath = ".env";
-    break;
-  case "dev":
-    envFilePath = ".env.dev";
-    break;
-  case "prod":
-    envFilePath = ".env.prod";
-    break;
-  default:
-    envFilePath = ".env";
-}
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: envFilePath,
+      envFilePath: process.env.NODE_ENV === "prod" ? ".env.prod" : 
+                  process.env.NODE_ENV === "dev" ? ".env.dev" : ".env",
       isGlobal: true,
+      cache: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -58,15 +46,19 @@ switch (process.env.NODE_ENV) {
           ssl: true,
           dropSchema: false,
           synchronize: false,
-          logging: process.env.NODE_ENV !== "production",
+          logging: false,
           connectTimeout: 5000,
           extra: {
-            connectionLimit: 5,
-            idleTimeoutMillis: 10000,
-            connectionTimeoutMillis: 5000,
+            connectionLimit: 1,
+            idleTimeoutMillis: 5000,
+            connectionTimeoutMillis: 2000,
+            keepAlive: true,
+            keepAliveInitialDelay: 1000,
           },
-          poolSize: 5,
+          poolSize: 1,
           autoLoadEntities: true,
+          retryAttempts: 1,
+          retryDelay: 1000,
         };
       },
       inject: [ConfigService],

@@ -54,4 +54,3 @@ exports.UnitOfWork = UnitOfWork = UnitOfWork_1 = __decorate([
     }),
     __metadata("design:paramtypes", [typeorm_1.Connection])
 ], UnitOfWork);
-//# sourceMappingURL=unit-of-work.provider.js.map
