@@ -12,7 +12,7 @@
     "prebuild": "rimraf dist && echo 'dist 디렉토리 삭제 완료'",
     "build": "nest build && echo '빌드 중 dist 디렉토리 내용:' && ls -la dist && echo 'src 디렉토리 내용:' && ls -la src && sleep 2",
     "postbuild1": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist",
-    "vercel-build": "npm run prebuild && npm run build && npm run postbuild1 && mkdir -p api && npm run postbuild2 && npm run afterbuild",
+    "vercel-build": "npm run prebuild && npm run build && npm run postbuild1 && mkdir -p api && npm run postbuild2 && npm run afterbuild && sleep 5",
     "postbuild2": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist",
     "afterbuild": "cp dist/main.js api/v1.js && echo '파일 복사 완료'",
     "start": "node dist/main.js",
