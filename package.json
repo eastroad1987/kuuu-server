@@ -7,10 +7,10 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc && nest build",
+    "build": "nest build",
     "vercel-build": "yarn build",
     "start": "node dist/main.js",
-    "start:prod": "node dist/main.js",
+    "start:prod": "NODE_ENV=production node dist/main.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "dev": "cross-env NODE_ENV=dev node --max-old-space-size=1024 node_modules/.bin/nest start --watch",
     "start:dev": "node --max-old-space-size=1024 node_modules/.bin/nest start --watch",
@@ -20,7 +20,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "@nestjs/axios": "^3.1.3",

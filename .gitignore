@@ -44,7 +44,6 @@ wp
 .cache
 
 # NestJS 특정 파일
-/dist
 /node_modules
 
 # 빌드 산출물

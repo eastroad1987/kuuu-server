@@ -12,49 +12,50 @@ import { TrimStringsPipe } from "../src/common/transformer/trim-strings.pipe";
 
 const server = express();
 
+let app: any;
+let serverlessHandler: any;
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server), {
-    logger: false,
-    abortOnError: false,
-  });
+  if (!app) {
+    app = await NestFactory.create(AppModule, new ExpressAdapter(server), {
+      logger: ["error", "warn"],
+      abortOnError: false,
+    });
 
-  app.useGlobalPipes(
-    new TrimStringsPipe(),
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-      transformOptions: {
-        enableImplicitConversion: true,
-      },
-    })
-  );
+    app.useGlobalPipes(
+      new TrimStringsPipe(),
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+      })
+    );
 
-  // app.use(compression());
-  app.use(json({ limit: "50mb" }));
-  app.use(urlencoded({ extended: true, limit: "50mb" }));
-  app.use(cookieParser());
-  app.use(helmet());
-  app.enableCors({
-    origin: true,
-    methods: "GET,HEAD,PUT,POST,DELETE,OPTIONS,PATCH",
-    credentials: true,
-  });
-  app.setGlobalPrefix("api");
-  await app.init();
-  return serverless(server);
+    // app.use(compression());
+    app.use(json({ limit: "50mb" }));
+    app.use(urlencoded({ extended: true, limit: "50mb" }));
+    app.use(cookieParser());
+    app.use(helmet());
+    app.enableCors({
+      origin: true,
+      methods: "GET,HEAD,PUT,POST,DELETE,OPTIONS,PATCH",
+      credentials: true,
+    });
+    app.setGlobalPrefix("api");
+    await app.init();
+  }
+  
+  if (!serverlessHandler) {
+    serverlessHandler = serverless(server);
+  }
+  
+  return serverlessHandler;
 }
 
-let handler: any;
-
-const getHandler = async () => {
-  if (!handler) {
-    handler = await bootstrap();
-  }
-  return handler;
-};
-
 export default async (req: any, res: any) => {
-  const serverlessHandler = await getHandler();
-  return serverlessHandler(req, res);
+  const handler = await bootstrap();
+  return handler(req, res);
 };
