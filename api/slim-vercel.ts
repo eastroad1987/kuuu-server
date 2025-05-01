@@ -2,6 +2,7 @@ import express from "express";
 import serverless from "serverless-http";
 import * as pathToRegexp from "path-to-regexp";
 import helmet from "helmet";
+import cors from "cors";
 
 // 필요한 path-to-regexp 모듈이 로드되었는지 확인
 console.log("path-to-regexp loaded:", !!pathToRegexp);
@@ -14,20 +15,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 
-// CORS 설정
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,POST,DELETE");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-  next();
-});
+// CORS 설정 - express에서 지원하는 cors 패키지 사용
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  })
+);
 
 // 기본 라우트
 app.get("/api/health", (req, res) => {
@@ -59,7 +56,7 @@ export default async (req, res) => {
     console.error("Serverless handler error:", error);
     res.status(500).json({
       error: "Internal Server Error",
-      message: error.message
+      message: error.message,
     });
   }
 }; 

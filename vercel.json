@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm install --legacy-peer-deps path-to-regexp express serverless-http helmet && npm run build",
+  "buildCommand": "npm install --legacy-peer-deps path-to-regexp express serverless-http helmet cors && npm run build",
   "builds": [
     {
       "src": "api/slim-vercel.ts",
@@ -16,7 +16,8 @@
           "!node_modules/path-to-regexp/**/*",
           "!node_modules/express/**/*",
           "!node_modules/serverless-http/**/*",
-          "!node_modules/helmet/**/*"
+          "!node_modules/helmet/**/*",
+          "!node_modules/cors/**/*"
         ]
       }
     },
