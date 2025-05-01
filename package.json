@@ -9,9 +9,10 @@
     "node": "20.x"
   },
   "scripts": {
-    "build": "nest build",
+    "prebuild": "rm -rf dist",
+    "build": "nest build && tsc && node src",
     "ls": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist/src",
-    "vercel-build": "npm install && npm run build && npm run ls && cp -r dist/src/* api/",
+    "vercel-build": "npm install && npm run build && cp -r dist/src/* api/",
     "start": "node dist/src/main.js",
     "start:prod": "NODE_ENV=production node dist/src/main.js",
     "db:test": "node -e \"require('dotenv').config(); const { Pool } = require('pg'); (async () => { try { const pool = new Pool({ host: process.env.DB_HOST, port: process.env.DB_PORT, user: process.env.DB_USERNAME, password: process.env.DB_PASSWORD, database: process.env.DB_DATABASE, sslmode: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false }); const client = await pool.connect(); console.log('PostgreSQL 연결 성공!'); await client.release(); await pool.end(); } catch (error) { console.error('PostgreSQL 연결 실패:', error); process.exit(1); } })()\"",

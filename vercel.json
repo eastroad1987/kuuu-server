@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "api",
   "functions": {
     "api/v1.js": {
       "memory": 1024,
@@ -21,7 +23,5 @@
     "DB_PASSWORD": "npg_9YI1uePyKmDC",
     "DB_DATABASE": "kuuu_db",
     "DB_SSL": "true"
-  },
-  "buildCommand": "npm run vercel-build",
-  "outputDirectory": "api"
+  }
 }

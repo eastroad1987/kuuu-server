@@ -46,4 +46,12 @@ dist
 .env.*
 .vscode
 .idea
-*.md 
+*.md
+
+# 추가된 파일
+!.env.prod
+tsconfig.json
+nest-cli.json
+jest.config.js
+.eslintrc.js
+.prettierrc 
