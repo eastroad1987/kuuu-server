@@ -3,6 +3,13 @@ node_modules
 .pnp
 .pnp.js
 
+# 특정 필요한 모듈만 포함되고 나머지는 제외
+!node_modules/path-to-regexp
+!node_modules/@nestjs/core
+!node_modules/express
+!node_modules/serverless-http
+!node_modules/helmet
+
 # testing
 coverage
 test
