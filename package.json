@@ -9,7 +9,6 @@
     "node": "20.x"
   },
   "scripts": {
-    "prebuild": "rimraf dist && echo 'dist 디렉토리 삭제 완료'",
     "build": "nest build",
     "ls": "echo '빌드 후 dist 디렉토리 내용:' && ls -la dist/src",
     "vercel-build": "npm run prebuild && npm run build && npm run ls && cp -r dist/src/* api/ && npm run start",
@@ -68,7 +67,6 @@
     "pg": "^8.15.6",
     "query-string": "^9.1.1",
     "reflect-metadata": "^0.2.2",
-    "rimraf": "^6.0.1",
     "rxjs": "^7.8.1",
     "serverless-http": "^3.2.0",
     "swc": "^1.0.11",
