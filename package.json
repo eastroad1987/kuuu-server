@@ -11,7 +11,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "vercel-build": "npm run build",
+    "vercel-build": "tsc api/slim-vercel.ts api/health.ts --outDir dist/api --esModuleInterop",
     "start": "node dist/main.js",
     "start:prod": "NODE_ENV=production node dist/main.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
